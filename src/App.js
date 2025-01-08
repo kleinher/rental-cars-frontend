@@ -1,9 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AdminPage from "./admin/AdminPage";
-import UserProfile from "./UserProfile";
+import UserProfile from "./user/UserProfile";
 import { Container, AppBar, Toolbar, Typography } from "@mui/material";
 import logo from "./files/logo.png";
+import Home from "./Home";
 
 const App = () => {
     return (
@@ -17,6 +18,7 @@ const App = () => {
             <Toolbar /> {/* This is a spacer to push the content below the AppBar */}
             <Container>
                 <Routes>
+                    <Route path="/" element={<Home />} />
                     <Route path="/admin" element={<AdminPage />} />
                     <Route path="/user" element={<UserProfile userId={1} />} />
                 </Routes>

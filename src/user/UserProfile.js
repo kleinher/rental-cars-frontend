@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { cars } from "./Data";
+import { cars } from "../Data";
 import { Box, Card, CardContent, Typography, TextField, Button } from "@mui/material";
 
 const UserProfile = ({ userId }) => {

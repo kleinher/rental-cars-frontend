@@ -12,6 +12,7 @@ const CarList = ({ cars }) => {
             border: "1px solid",
             borderColor: "grey.300",
             padding: 2,
+            borderRadius: 2,
         }
     };
 
