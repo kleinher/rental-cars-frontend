@@ -16,9 +16,7 @@ const AdminPage = () => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            height: "90vh",
-            border: "2px solid",
-            borderColor: "primary.main",
+            height: "80vh",
         },
         card: {
             border: "1px solid",
@@ -29,7 +27,7 @@ const AdminPage = () => {
     return (
         <ThemeProvider theme={theme}>
             <Box sx={styles.container}>
-                <Typography variant="h4" gutterBottom>
+                <Typography style={{ fontFamily: 'Arial, sans-serif', fontWeight: "bold" }} variant="h4" gutterBottom>
                     Lista de Coches
                 </Typography>
                 <CarList cars={sortedCars} />
