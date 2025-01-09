@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardContent, Typography, Box, Button } from "@mui/material";
+import { Card, CardContent, Typography, Box, Button, Grid2 } from "@mui/material";
 import { formatDistanceStrict, differenceInDays, differenceInMonths } from "date-fns";
 import { useState } from "react";
 
@@ -42,14 +42,14 @@ const CarCard = ({ car }) => {
                     <Typography variant="body2">Usuario: {car.user}</Typography>
                     <Typography variant="body2">Kilómetros: {car.kilometers}</Typography>
                 </Box>
-                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', width: '50%' }}>
+                <Grid2 container spacing={1} item xs={12} sx={{ flexDirection: 'column', justifyContent: 'center' }}>
                     <Typography variant="body2" color="text.secondary">
                         Última actualización: hace {calculateRelativeDate(car.lastUpdated)}
                     </Typography>
                     <Button variant='contained' color={buttonColor} sx={{ alignSelf: 'flex-end', padding: '0 8px' }} onClick={handleButtonClick}>
                         {buttonText}
                     </Button>
-                </Box>
+                </Grid2>
             </CardContent>
         </Card>
     );
