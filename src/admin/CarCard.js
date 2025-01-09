@@ -37,12 +37,12 @@ const CarCard = ({ car }) => {
     return (
         <Card sx={styles.card}>
             <CardContent sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Box>
+                <Box sx={{ marginRight: 4 }}>
                     <Typography variant="h6" fontWeight="bold"> {car.licensePlate}</Typography>
                     <Typography variant="body2">Usuario: {car.user}</Typography>
                     <Typography variant="body2">Kilómetros: {car.kilometers}</Typography>
                 </Box>
-                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', width: '50%' }}>
                     <Typography variant="body2" color="text.secondary">
                         Última actualización: hace {calculateRelativeDate(car.lastUpdated)}
                     </Typography>
