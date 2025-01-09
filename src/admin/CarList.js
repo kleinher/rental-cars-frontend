@@ -6,13 +6,6 @@ const CarList = ({ cars }) => {
     const styles = {
         gridContainer: {
             flexDirection: "row",
-            width: "70%",
-            maxHeight: "100%",
-            overflowY: "auto",
-            border: "1px solid",
-            borderColor: "grey.300",
-            padding: 2,
-            borderRadius: 2,
         }
     };
 

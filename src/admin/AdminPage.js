@@ -17,7 +17,6 @@ const AdminPage = () => {
             flexDirection: "column",
             alignItems: "center",
             height: "calc(100vh - 128px)",
-            overflow: "hidden",
         },
         card: {
             border: "1px solid",
