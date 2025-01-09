@@ -5,7 +5,6 @@ import UserProfile from "./user/UserProfile";
 import { Container, AppBar, Toolbar, Typography } from "@mui/material";
 import logo from "./files/logo.png";
 import Home from "./Home";
-
 const App = () => {
     return (
         <Router>
