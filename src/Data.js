@@ -9,3 +9,15 @@ export const cars = [
   { id: 8, model: "Kia Forte", user: "Miguel", userId: 1, kilometers: 16000, lastUpdated: "2024-12-30", licensePlate: "VWX234" },
   { id: 9, model: "Mazda 3", user: "Laura", userId: 1, kilometers: 13000, lastUpdated: "2024-12-29", licensePlate: "YZA567" },
 ];
+
+export const pending = [
+  { id: 1, model: "Toyota Corolla", user: "Juan", userId: 1, kilometers: 12000, lastUpdated: "2024-01-06", licensePlate: "ABC123" },
+  { id: 2, model: "Honda Civic", user: "Ana", userId: 1, kilometers: 15000, lastUpdated: "2025-01-05", licensePlate: "DEF456" },
+  { id: 9, model: "Mazda 3", user: "Laura", userId: 1, kilometers: 13000, lastUpdated: "2024-12-29", licensePlate: "YZA567" },
+];
+
+export const service = [
+  { id: 1, model: "Toyota Corolla", user: "Juan", userId: 1, kilometers: 12000, lastUpdated: "2024-01-06", licensePlate: "ABC123" },
+  { id: 2, model: "Honda Civic", user: "Ana", userId: 1, kilometers: 15000, lastUpdated: "2025-01-05", licensePlate: "DEF456" },
+  { id: 9, model: "Mazda 3", user: "Laura", userId: 1, kilometers: 13000, lastUpdated: "2024-12-29", licensePlate: "YZA567" },
+];

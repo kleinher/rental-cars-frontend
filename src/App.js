@@ -14,14 +14,12 @@ const App = () => {
                     <Typography variant="h6" style={{ fontFamily: 'Arial, sans-serif', fontWeight: "bold" }}>Rental Cars MVP</Typography>
                 </Toolbar>
             </AppBar>
-            <Toolbar /> {/* This is a spacer to push the content below the AppBar */}
-            <Container>
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/admin" element={<AdminPage />} />
-                    <Route path="/user" element={<UserProfile userId={1} />} />
-                </Routes>
-            </Container>
+            <Toolbar />
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/admin" element={<AdminPage />} />
+                <Route path="/user" element={<UserProfile userId={1} />} />
+            </Routes>
         </Router>
     );
 };

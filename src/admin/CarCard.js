@@ -2,13 +2,16 @@ import React from "react";
 import { Card, CardContent, Typography, Box, Button, Grid2 } from "@mui/material";
 import { formatDistanceStrict, differenceInDays, differenceInMonths } from "date-fns";
 import { useState } from "react";
+import SendButton from "./SendButton";
 
 const CarCard = ({ car }) => {
     const styles = {
-
         card: {
-            border: "1px solid",
-            borderColor: "grey.500",
+            margin: 1,
+            padding: 2,
+            borderRadius: 2,
+            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+            backgroundColor: "#fff",
         },
     };
 
@@ -17,21 +20,13 @@ const CarCard = ({ car }) => {
         const today = new Date();
 
         const months = differenceInMonths(today, updatedDate);
-        const days = differenceInDays(today, updatedDate) - months * 30; // Ajusta los días restantes
+        const days = differenceInDays(today, updatedDate) - months * 30;
 
         if (months >= 1) {
             return `${months} mes${months > 1 ? "es" : ""} y ${days} día${days !== 1 ? "s" : ""}`;
         } else {
             return `${days} día${days !== 1 ? "s" : ""}`;
         }
-    };
-
-    const [buttonText, setButtonText] = useState("Enviar recordatorio");
-    const [buttonColor, setButtonColor] = useState("primary");
-
-    const handleButtonClick = () => {
-        setButtonText("Reenviar recordatorio");
-        setButtonColor("secondary");
     };
 
     return (
@@ -46,9 +41,7 @@ const CarCard = ({ car }) => {
                     <Typography variant="body2" color="text.secondary">
                         Última actualización: hace {calculateRelativeDate(car.lastUpdated)}
                     </Typography>
-                    <Button variant='contained' color={buttonColor} sx={{ alignSelf: 'flex-end', padding: '0 8px' }} onClick={handleButtonClick}>
-                        {buttonText}
-                    </Button>
+                    <SendButton />
                 </Grid2>
             </CardContent>
         </Card>

@@ -1,6 +1,6 @@
 import React from "react";
-import { cars } from "../Data";
-import { Box, Typography, ThemeProvider } from "@mui/material";
+import { cars, pending, service } from "../Data";
+import { Box, Typography, ThemeProvider, Grid2 } from "@mui/material";
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 import CarList from "./CarList";
 
@@ -12,27 +12,32 @@ const AdminPage = () => {
 
     const styles = {
         container: {
-            p: 4,
             display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            height: "calc(100vh - 128px)",
+            flexDirection: "row",
+            margin: "0px",
         },
         card: {
             border: "1px solid",
             borderColor: "grey.500",
+        },
+        list: {
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            margin: "5px",
+            marginLeft: "10px", // Horizontal margin
+            marginRight: "10px", // Horizontal margin
         },
     };
 
     return (
         <ThemeProvider theme={theme}>
             <Box sx={styles.container}>
-                <Typography style={{ fontFamily: 'Arial, sans-serif', fontWeight: "bold" }} variant="h4" gutterBottom>
-                    Lista de Coches
-                </Typography>
-                <CarList cars={sortedCars} />
+                <CarList cars={sortedCars} title="Coches" />
+                <CarList cars={pending} title="Aviso enviado" />
+                <CarList cars={service} title="Mantenimiento" />
             </Box>
-        </ThemeProvider>
+        </ThemeProvider >
     );
 };
 
