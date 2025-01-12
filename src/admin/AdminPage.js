@@ -8,7 +8,8 @@ const AdminPage = () => {
     let theme = createTheme();
     theme = responsiveFontSizes(theme);
 
-    const sortedCars = [...cars].sort((a, b) => new Date(a.lastUpdated) - new Date(b.lastUpdated));
+    const reminderSentFalse = cars.filter(car => !car.reminderSent);
+    const reminderSentTrue = cars.filter(car => car.reminderSent);
 
     const styles = {
         container: {
@@ -33,8 +34,8 @@ const AdminPage = () => {
     return (
         <ThemeProvider theme={theme}>
             <Box sx={styles.container}>
-                <CarList cars={sortedCars} title="Coches" />
-                <CarList cars={pending} title="Aviso enviado" />
+                <CarList cars={reminderSentFalse} title="Coches" />
+                <CarList cars={reminderSentTrue} title="Aviso enviado" />
                 <CarList cars={service} title="Mantenimiento" />
             </Box>
         </ThemeProvider >

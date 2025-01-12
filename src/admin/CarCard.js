@@ -1,7 +1,6 @@
 import React from "react";
-import { Card, CardContent, Typography, Box, Button, Grid2 } from "@mui/material";
-import { formatDistanceStrict, differenceInDays, differenceInMonths } from "date-fns";
-import { useState } from "react";
+import { Card, CardContent, Typography, Box, Grid2 } from "@mui/material";
+import { differenceInDays, differenceInMonths } from "date-fns";
 import SendButton from "./SendButton";
 
 const CarCard = ({ car }) => {
@@ -41,7 +40,7 @@ const CarCard = ({ car }) => {
                     <Typography variant="body2" color="text.secondary">
                         Última actualización: hace {calculateRelativeDate(car.lastUpdated)}
                     </Typography>
-                    <SendButton />
+                    <SendButton phoneNumber={car.phoneNumber} licensePlate={car.licensePlate} />
                 </Grid2>
             </CardContent>
         </Card>
