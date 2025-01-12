@@ -3,6 +3,7 @@ import wppClient from "../client/wppClient";
 import { Button } from "@mui/material";
 import { useContext } from "react";
 import { CarsContext } from "../context/CarsContext";
+import { sendNotification } from "../client/wppEndpoint";
 
 const SendButton = ({ phoneNumber, licencePlate }) => {
     const [buttonText, setButtonText] = useState("Enviar mensaje");
@@ -10,23 +11,17 @@ const SendButton = ({ phoneNumber, licencePlate }) => {
     const [loading, setLoading] = useState(false);
     const { updateReminderSent } = useContext(CarsContext);
 
-    const api = wppClient;
 
     const handleButtonClick = async () => {
 
         try {
             setLoading(true);
-            const message = {
-                message: "Este es un recordatorio enviado al backend",
-                number: { phoneNumber },
-                licencePlate: { licencePlate },
-            };
+            await sendNotification(phoneNumber, licencePlate);
 
-            await api.post("/notification/send", message);
             setButtonText("Mensaje enviado");
             setButtonColor("success");
 
-            updateReminderSent(phoneNumber, licencePlate, true);
+            updateReminderSent(licencePlate, true);
         } catch (error) {
             console.error("Error al enviar el mensaje:", error);
 

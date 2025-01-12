@@ -1,11 +1,14 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState } from 'react';
+import { initialCars } from '../Data';
 
 // Create the context
-const CarsContext = createContext();
+export const CarsContext = createContext();
 
 // Create a provider component
 export const CarsProvider = ({ children }) => {
-    const [cars, setCars] = useState([]);
+    const [cars, setCars] = useState(initialCars);
+    // Initialize cars state with data from Data.js
+
 
     const addCar = (car) => {
         setCars([...cars, car]);
@@ -15,7 +18,7 @@ export const CarsProvider = ({ children }) => {
         setCars(cars.filter(car => car.id !== carId));
     };
     const updateReminderSent = (carId, reminderSent) => {
-        setCars(cars.map(car => (car.id === carId ? { ...car, reminderSent } : car)));
+        setCars(cars.map(car => (car.licensePlate === carId ? { ...car, reminderSent } : car)));
     };
     const updateCar = (updatedCar) => {
         setCars(cars.map(car => (car.id === updatedCar.id ? updatedCar : car)));

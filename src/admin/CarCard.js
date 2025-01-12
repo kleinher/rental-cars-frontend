@@ -40,7 +40,7 @@ const CarCard = ({ car }) => {
                     <Typography variant="body2" color="text.secondary">
                         Última actualización: hace {calculateRelativeDate(car.lastUpdated)}
                     </Typography>
-                    <SendButton phoneNumber={car.phoneNumber} licensePlate={car.licensePlate} />
+                    <SendButton phoneNumber={car.phoneNumber} licencePlate={car.licensePlate} />
                 </Grid2>
             </CardContent>
         </Card>
