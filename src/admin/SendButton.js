@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 import wppClient from "../client/wppClient";
 import { Button } from "@mui/material";
+import { useContext } from "react";
+import { CarsContext } from "../context/CarsContext";
 
 const SendButton = ({ phoneNumber, licencePlate }) => {
     const [buttonText, setButtonText] = useState("Enviar mensaje");
     const [buttonColor, setButtonColor] = useState("primary");
     const [loading, setLoading] = useState(false);
+    const { updateReminderSent } = useContext(CarsContext);
+
     const api = wppClient;
 
     const handleButtonClick = async () => {
+
         try {
             setLoading(true);
             const message = {
@@ -20,6 +25,8 @@ const SendButton = ({ phoneNumber, licencePlate }) => {
             await api.post("/notification/send", message);
             setButtonText("Mensaje enviado");
             setButtonColor("success");
+
+            updateReminderSent(phoneNumber, licencePlate, true);
         } catch (error) {
             console.error("Error al enviar el mensaje:", error);
 
