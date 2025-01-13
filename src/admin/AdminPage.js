@@ -13,9 +13,11 @@ const AdminPage = () => {
 
     const { cars } = useContext(CarsContext);
 
-    const reminderSentFalse = cars.filter(car => !car.reminderSent);
-    const reminderSentTrue = cars.filter(car => car.reminderSent);
-    const service = cars.filter(car => car.inMaintenance);
+    const normalCars = cars.filter(car => !car.reminderSent);
+    const reminderSentCars = cars
+        .filter(car => car.reminderSent)
+        .sort((a, b) => new Date(b.reminderSentDate) - new Date(a.reminderSentDate));
+    const inMaintenanceCars = cars.filter(car => car.inMaintenance);
 
     const styles = {
         container: {
@@ -40,22 +42,22 @@ const AdminPage = () => {
     return (
         <ThemeProvider theme={theme}>
             <Box sx={styles.container}>
-                <CarList cars={reminderSentFalse} title="Coches" >
-                    {reminderSentFalse.map((car) => (
+                <CarList title="Coches" >
+                    {normalCars.map((car) => (
                         <Grid2 sx={{ width: "100%" }} item xs={12} key={car.id}>
                             <CarCard car={car} />
                         </Grid2>
                     ))}
                 </CarList>
-                <CarList cars={reminderSentTrue} title="Aviso enviado" >
-                    {reminderSentTrue.map((car) => (
+                <CarList title="Aviso enviado" >
+                    {reminderSentCars.map((car) => (
                         <Grid2 sx={{ width: "100%" }} item xs={12} key={car.id}>
                             <ReminderCard car={car} />
                         </Grid2>
                     ))}
                 </CarList>
-                <CarList cars={service} title="Mantenimiento" >
-                    {service.map((car) => (
+                <CarList title="Mantenimiento" >
+                    {inMaintenanceCars.map((car) => (
                         <Grid2 sx={{ width: "100%" }} item xs={12} key={car.id}>
                             <MaintainanceCard car={car} />
                         </Grid2>
