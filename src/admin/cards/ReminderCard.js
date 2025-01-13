@@ -1,9 +1,9 @@
 import React from "react";
 import { Card, CardContent, Typography, Box, Grid2 } from "@mui/material";
 import { differenceInDays, differenceInMonths } from "date-fns";
-import SendButton from "./SendButton";
+import ResendButton from "../buttons/ResendButton";
 
-const CarCard = ({ car }) => {
+const ReminderCard = ({ car }) => {
     const styles = {
         card: {
             margin: 1,
@@ -38,13 +38,13 @@ const CarCard = ({ car }) => {
                 </Box>
                 <Grid2 container spacing={1} item xs={12} sx={{ flexDirection: 'column', justifyContent: 'center' }}>
                     <Typography variant="body2" color="text.secondary">
-                        Última actualización: hace {calculateRelativeDate(car.lastUpdated)}
+                        Aviso enviado hace: {calculateRelativeDate(car.reminderSentDate)}
                     </Typography>
-                    <SendButton phoneNumber={car.phoneNumber} licencePlate={car.licensePlate} />
+                    <ResendButton phoneNumber={car.phoneNumber} licencePlate={car.licensePlate} />
                 </Grid2>
             </CardContent>
         </Card>
     );
 };
 
-export default CarCard;
+export default ReminderCard;

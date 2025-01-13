@@ -18,7 +18,7 @@ export const CarsProvider = ({ children }) => {
         setCars(cars.filter(car => car.id !== carId));
     };
     const updateReminderSent = (carId, reminderSent) => {
-        setCars(cars.map(car => (car.licensePlate === carId ? { ...car, reminderSent } : car)));
+        setCars(cars.map(car => (car.licensePlate === carId ? { ...car, reminderSent, reminderSentDate: new Date() } : car)));
     };
     const updateCar = (updatedCar) => {
         setCars(cars.map(car => (car.id === updatedCar.id ? updatedCar : car)));

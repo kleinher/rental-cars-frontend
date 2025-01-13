@@ -1,8 +1,7 @@
 import React from "react";
 import { Grid2, Box, Typography } from "@mui/material";
-import CarCard from "./CarCard";
 
-const CarList = ({ cars, title, CardComponent }) => {
+const CarList = ({ title, children }) => {
     const styles = {
         list: {
             margin: "5px",
@@ -36,11 +35,7 @@ const CarList = ({ cars, title, CardComponent }) => {
             <Box sx={styles.list}>
 
                 <Grid2 spacing={1} sx={styles.gridContainer}>
-                    {cars.map((car) => (
-                        <Grid2 sx={{ width: "100%" }} item xs={12} key={car.id}>
-                            <CarCard car={car} />
-                        </Grid2>
-                    ))}
+                    {children}
                 </Grid2>
             </Box>
         </Box>);
