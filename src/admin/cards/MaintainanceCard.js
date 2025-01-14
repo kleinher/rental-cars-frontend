@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardContent, Typography, Box, Grid2 } from "@mui/material";
 import MaintainanceButton from "../buttons/MaintainanceButton";
 
-const CarCard = ({ car }) => {
+const MaintainanceCard = ({ car }) => {
     const styles = {
         card: {
             margin: 1,
@@ -22,11 +22,11 @@ const CarCard = ({ car }) => {
                     <Typography variant="body2">Kilómetros: {car.kilometers}</Typography>
                 </Box>
                 <Grid2 container spacing={1} item xs={12} sx={{ flexDirection: 'column', justifyContent: 'center' }}>
-                    <MaintainanceButton phoneNumber={car.phoneNumber} licencePlate={car.licensePlate} />
+                    <MaintainanceButton licencePlate={car.licensePlate} />
                 </Grid2>
             </CardContent>
         </Card>
     );
 };
 
-export default CarCard;
+export default MaintainanceCard;

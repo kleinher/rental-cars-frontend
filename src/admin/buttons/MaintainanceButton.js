@@ -6,28 +6,31 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Box from '@mui/material/Box';
+import { useContext } from 'react';
+import { CarsContext } from '../../context/CarsContext';
 
-const MaintenanceButton = ({ onMaintenanceComplete }) => {
+const MaintenanceButton = ({ licencePlate }) => {
     const [open, setOpen] = useState(false);
 
     const handleClickOpen = () => {
         setOpen(true);
     };
+    const { updateCarMaintenanceStatus } = useContext(CarsContext);
+
 
     const handleClose = (isConfirmed) => {
         setOpen(false);
         if (isConfirmed) {
-            onMaintenanceComplete();
+            updateCarMaintenanceStatus(licencePlate);
         }
     };
 
     return (
-        <Box >
+        <Box>
             <Button variant="contained"
                 color="warning"
                 sx={{ alignSelf: 'flex-end', padding: '0 8px' }}
                 onClick={handleClickOpen}>
-
                 Mantenimiento terminado
             </Button>
             <Dialog

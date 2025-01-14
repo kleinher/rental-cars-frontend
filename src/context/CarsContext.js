@@ -20,12 +20,17 @@ export const CarsProvider = ({ children }) => {
     const updateReminderSent = (carId, reminderSent) => {
         setCars(cars.map(car => (car.licensePlate === carId ? { ...car, reminderSent, reminderSentDate: new Date() } : car)));
     };
+
+    const updateCarMaintenanceStatus = (licensePlate) => {
+        setCars(cars.map(car => (car.licensePlate === licensePlate ? { ...car, inMaintenance: false } : car)));
+    };
+
     const updateCar = (updatedCar) => {
         setCars(cars.map(car => (car.id === updatedCar.id ? updatedCar : car)));
     };
 
     return (
-        <CarsContext.Provider value={{ cars, addCar, removeCar, updateCar, updateReminderSent }}>
+        <CarsContext.Provider value={{ cars, addCar, removeCar, updateCar, updateReminderSent, updateCarMaintenanceStatus }}>
             {children}
         </CarsContext.Provider>
     );

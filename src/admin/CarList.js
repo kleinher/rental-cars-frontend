@@ -33,7 +33,6 @@ const CarList = ({ title, children }) => {
                 {title}
             </Typography>
             <Box sx={styles.list}>
-
                 <Grid2 spacing={1} sx={styles.gridContainer}>
                     {children}
                 </Grid2>
