@@ -17,7 +17,6 @@ const MaintenanceButton = ({ licencePlate }) => {
     };
     const { updateCarMaintenanceStatus } = useContext(CarsContext);
 
-
     const handleClose = (isConfirmed) => {
         setOpen(false);
         if (isConfirmed) {

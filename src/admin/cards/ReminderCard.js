@@ -22,10 +22,12 @@ const ReminderCard = ({ car }) => {
         const days = differenceInDays(today, updatedDate) - months * 30;
 
         if (months >= 1) {
-            return `${months} mes${months > 1 ? "es" : ""} y ${days} día${days !== 1 ? "s" : ""}`;
-        } else {
-            return `${days} día${days !== 1 ? "s" : ""}`;
+            return `Aviso enviado hace: ${months} mes${months > 1 ? "es" : ""} y ${days} día${days !== 1 ? "s" : ""}`;
         }
+        if (days >= 1) {
+            return `Aviso enviado hace: ${days} día${days !== 1 ? "s" : ""}`;
+        }
+        return "Aviso enviado hoy";
     };
 
     return (
@@ -38,7 +40,7 @@ const ReminderCard = ({ car }) => {
                 </Box>
                 <Grid2 container spacing={1} item xs={12} sx={{ flexDirection: 'column', justifyContent: 'center' }}>
                     <Typography variant="body2" color="text.secondary">
-                        Aviso enviado hace: {calculateRelativeDate(car.reminderSentDate)}
+                        {calculateRelativeDate(car.reminderSentDate)}
                     </Typography>
                     <ResendButton phoneNumber={car.phoneNumber} licencePlate={car.licensePlate} />
                 </Grid2>
