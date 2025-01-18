@@ -1,4 +1,4 @@
-import wppClient from "../client/wppClient";
+import wppClient from "./wppClient";
 
 export const sendNotification = async (phoneNumber, licencePlate) => {
     const api = wppClient;
@@ -11,3 +11,4 @@ export const sendNotification = async (phoneNumber, licencePlate) => {
 
     await api.post("/notification/send", message);
 };
+

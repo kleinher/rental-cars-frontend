@@ -13,7 +13,7 @@ const AdminPage = () => {
 
     const { cars } = useContext(CarsContext);
 
-    const normalCars = cars.filter(car => !car.reminderSent);
+    const normalCars = cars.filter(car => !car.reminderSent && !car.inMaintenance);
     const reminderSentCars = cars
         .filter(car => car.reminderSent)
         .sort((a, b) => new Date(b.reminderSentDate) - new Date(a.reminderSentDate));

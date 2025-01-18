@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
-
+import { carEndMaintainance } from '../client/carsEndpoint';
 // Create the context
 export const CarsContext = createContext();
 
@@ -59,7 +59,7 @@ export const CarsProvider = ({ children }) => {
     };
 
     const updateCarMaintenanceStatus = (licensePlate) => {
-        setCars(cars.map(car => (car.licensePlate === licensePlate ? { ...car, inMaintenance: false } : car)));
+        carEndMaintainance(licensePlate);
 
     };
 

@@ -22,9 +22,11 @@ const CarCard = ({ car }) => {
         const days = differenceInDays(today, updatedDate) - months * 30;
 
         if (months >= 1) {
-            return `${months} mes${months > 1 ? "es" : ""} y ${days} día${days !== 1 ? "s" : ""}`;
+            return `Última actualización: hace ${months} mes${months > 1 ? "es" : ""} y ${days} día${days !== 1 ? "s" : ""}`;
+        } else if (days > 0) {
+            return `Última actualización: hace ${days} día${days !== 1 ? "s" : ""}`;
         } else {
-            return `${days} día${days !== 1 ? "s" : ""}`;
+            return "Última actualización: hoy";
         }
     };
 
@@ -38,7 +40,7 @@ const CarCard = ({ car }) => {
                 </Box>
                 <Grid2 container spacing={1} item xs={12} sx={{ flexDirection: 'column', justifyContent: 'center' }}>
                     <Typography variant="body2" color="text.secondary">
-                        Última actualización: hace {calculateRelativeDate(car.lastUpdated)}
+                        {calculateRelativeDate(car.lastUpdated)}
                     </Typography>
                     <SendButton phoneNumber={car.phoneNumber} licencePlate={car.licensePlate} />
                 </Grid2>
