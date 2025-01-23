@@ -7,6 +7,8 @@ export const CarsContext = createContext();
 export const CarsProvider = ({ children }) => {
     const [cars, setCars] = useState([]);
     const [ws, setWs] = useState(null);
+    const [qr, setQr] = useState(null); // Estado para el QR
+    const [validated, setValidated] = useState(false);
 
     useEffect(() => {
         const socket = new WebSocket('ws://localhost:4000');
@@ -19,10 +21,16 @@ export const CarsProvider = ({ children }) => {
 
         socket.onmessage = (event) => {
             const data = JSON.parse(event.data);
+            console.log('Mensaje recibido:', data);
 
-            console.log('Actualización recibida del servidor:', data);
-
-            setCars(data);
+            if (data.type === 'qr') {
+                setQr(data.qr); // Actualiza el QR recibido
+                setValidated(false); // Asegúrate de que no esté validado
+            } else if (data.type === 'validated') {
+                setValidated(data.value);
+            } else if (data.type === 'cars') {
+                setCars(data.cars);
+            }
         };
 
         socket.onclose = () => {
@@ -66,6 +74,7 @@ export const CarsProvider = ({ children }) => {
     return (
         <CarsContext.Provider
             value={{
+                qr, validated,
                 cars,
                 addCar,
                 removeCar,

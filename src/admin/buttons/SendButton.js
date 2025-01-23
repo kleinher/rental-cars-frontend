@@ -35,7 +35,7 @@ const SendButton = ({ phoneNumber, licencePlate }) => {
         <Button
             variant='contained'
             color={buttonColor}
-            sx={{ alignSelf: 'flex-end', padding: '0 8px' }}
+            sx={{ padding: '0 8px', marginTop: 2 }}
             onClick={handleButtonClick}
         >
             {loading ? "Enviando..." : buttonText}
