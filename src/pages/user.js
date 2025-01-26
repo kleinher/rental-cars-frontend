@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box, Typography, CardContent } from "@mui/material";
-import CarGrid from "./CarGrid";
-import CarDialog from "./CarDialog";
+import CarGrid from "../user/CarGrid";
+import CarDialog from "../user/CarDialog";
 import { initialCars as cars } from "../Data";
 
 const styles = {

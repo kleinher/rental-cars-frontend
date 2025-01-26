@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import { Box, ThemeProvider, Grid2, CircularProgress, IconButton } from "@mui/material";
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
-import CarList from "./CarList";
+import CarList from "../admin/CarList";
 import { CarsContext } from "../context/CarsContext";
-import CarCard from "./cards/CarCard";
-import ReminderCard from "./cards/ReminderCard";
-import MaintainanceCard from "./cards/MaintainanceCard";
+import CarCard from "../admin/cards/CarCard";
+import ReminderCard from "../admin/cards/ReminderCard";
+import MaintainanceCard from "../admin/cards/MaintainanceCard";
 import LoginIcon from '@mui/icons-material/Login';
 
 const AdminPage = () => {
