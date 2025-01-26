@@ -27,7 +27,7 @@ const sendReminder = (params) => {
 
 const columns = [
     { field: 'licensePlate', headerName: 'Matricula', width: 150 },
-    { field: 'user', headerName: 'Conductor', width: 150 },
+    { field: 'driver', headerName: 'Conductor', width: 150 },
     { field: 'estMaintainance', headerName: 'Mantenimiento estimado', renderCell: projectedMaintainance },
     { field: 'reminderSent', headerName: 'Enviar aviso', flex: 1, renderCell: sendReminder },
     { field: 'reminderSentDate', headerName: 'Fecha de aviso', width: 150, renderCell: reminderSentDate },
