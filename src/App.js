@@ -1,5 +1,6 @@
 import React from "react";
 import { CarsProvider } from "./context/CarsContext";
+import { DriverProvider } from "./context/DriverContext";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { ReactRouterAppProvider } from '@toolpad/core/react-router';
@@ -40,11 +41,13 @@ const BRANDING = {
 
 const App = () => {
     return (
-        <CarsProvider>
-            <ReactRouterAppProvider navigation={NAVIGATION} branding={BRANDING}>
-                <Outlet />
-            </ReactRouterAppProvider>
-        </CarsProvider>
+        <DriverProvider>
+            <CarsProvider>
+                <ReactRouterAppProvider navigation={NAVIGATION} branding={BRANDING}>
+                    <Outlet />
+                </ReactRouterAppProvider>
+            </CarsProvider>
+        </DriverProvider>
     );
 };
 

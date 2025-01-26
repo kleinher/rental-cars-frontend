@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router';
 import "./index.css"; // Opcional, si estás usando estilos
 import Layout from "./layouts/dashboard";
 import AdminPage from "./pages/admin";
-import UserPage from "./pages/user";
+import DriversPage from "./pages/DriversPage";
 import NewAdminPage from "./pages/new/NewAdmin";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -23,7 +23,7 @@ const router = createBrowserRouter([
                     },
                     {
                         path: 'user',
-                        Component: UserPage,
+                        Component: DriversPage,
                     },
                     {
                         path: 'new/admin',
