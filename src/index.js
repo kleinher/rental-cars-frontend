@@ -6,6 +6,7 @@ import "./index.css"; // Opcional, si estás usando estilos
 import Layout from "./layouts/dashboard";
 import AdminPage from "./pages/admin";
 import UserPage from "./pages/user";
+import NewAdminPage from "./pages/new/NewAdmin";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const router = createBrowserRouter([
@@ -21,9 +22,13 @@ const router = createBrowserRouter([
                         Component: AdminPage,
                     },
                     {
-                        path: 'User',
+                        path: 'user',
                         Component: UserPage,
                     },
+                    {
+                        path: 'new/admin',
+                        Component: NewAdminPage,
+                    }
                 ],
             },
         ],

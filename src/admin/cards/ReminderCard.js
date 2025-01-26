@@ -2,6 +2,7 @@ import React from "react";
 import { Card, CardContent, Typography, Box, Grid2 } from "@mui/material";
 import { differenceInDays, differenceInMonths } from "date-fns";
 import ResendButton from "../buttons/ResendButton";
+import calculateRelativeDate from "../../util/Dates";
 
 const ReminderCard = ({ car }) => {
     const styles = {
@@ -12,22 +13,6 @@ const ReminderCard = ({ car }) => {
             boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
             backgroundColor: "#fff",
         },
-    };
-
-    const calculateRelativeDate = (dateString) => {
-        const updatedDate = new Date(dateString);
-        const today = new Date();
-
-        const months = differenceInMonths(today, updatedDate);
-        const days = differenceInDays(today, updatedDate) - months * 30;
-
-        if (months >= 1) {
-            return `Aviso enviado hace: ${months} mes${months > 1 ? "es" : ""} y ${days} día${days !== 1 ? "s" : ""}`;
-        }
-        if (days >= 1) {
-            return `Aviso enviado hace: ${days} día${days !== 1 ? "s" : ""}`;
-        }
-        return "Aviso enviado hoy";
     };
 
     return (

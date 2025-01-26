@@ -4,14 +4,14 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { ReactRouterAppProvider } from '@toolpad/core/react-router';
 import { Outlet } from 'react-router';
-
+import logo from "./files/logo.png";
 const NAVIGATION = [
     {
         kind: 'header',
         title: 'Main items',
     },
     {
-        title: 'Admin',
+        title: 'Matenimiento',
         icon: <DashboardIcon />,
     },
     {
@@ -19,10 +19,23 @@ const NAVIGATION = [
         title: 'Users',
         icon: <ShoppingCartIcon />,
     },
+    {
+        segment: 'new/admin',
+        title: 'New Admin Page',
+        icon: <ShoppingCartIcon />,
+    },
+
 ];
 
 const BRANDING = {
-    title: 'My Toolpad Core App',
+    logo: (
+        <img
+            src={logo}
+            alt="MUI logo"
+            style={{ height: 35 }}
+        />
+    ),
+    title: '',
 };
 
 const App = () => {
