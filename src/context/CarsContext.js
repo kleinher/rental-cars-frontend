@@ -6,14 +6,11 @@ export const CarsContext = createContext();
 // Create a provider component
 export const CarsProvider = ({ children }) => {
     const [cars, setCars] = useState([]);
-    const [ws, setWs] = useState(null);
     const [qr, setQr] = useState(null); // Estado para el QR
     const [validated, setValidated] = useState(false);
 
     useEffect(() => {
         const socket = new WebSocket('ws://localhost:4000');
-
-        setWs(socket);
 
         socket.onopen = () => {
             console.log('Conectado al WebSocket');

@@ -6,6 +6,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { ReactRouterAppProvider } from '@toolpad/core/react-router';
 import { Outlet } from 'react-router';
 import logo from "./files/logo.png";
+
 const NAVIGATION = [
     {
         kind: 'header',
@@ -41,6 +42,7 @@ const BRANDING = {
 
 const App = () => {
     return (
+
         <DriverProvider>
             <CarsProvider>
                 <ReactRouterAppProvider navigation={NAVIGATION} branding={BRANDING}>

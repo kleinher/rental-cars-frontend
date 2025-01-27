@@ -7,7 +7,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Box from '@mui/material/Box';
 import { useContext } from 'react';
-import { CarsContext } from '../../context/CarsContext';
+import { CarsContext } from '../../../context/CarsContext';
 
 const MaintenanceButton = ({ licencePlate }) => {
     const [open, setOpen] = useState(false);

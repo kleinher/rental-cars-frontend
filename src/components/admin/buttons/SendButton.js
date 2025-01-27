@@ -1,29 +1,31 @@
 import React, { useState } from "react";
 import { Button } from "@mui/material";
 import { useContext } from "react";
-import { CarsContext } from "../../context/CarsContext";
-import { sendNotification } from "../../client/wppEndpoint";
+import { CarsContext } from "../../../context/CarsContext";
+import { sendNotification } from "../../../client/wppEndpoint";
 
-const ResendButton = ({ phoneNumber, licencePlate }) => {
-    const [buttonText, setButtonText] = useState("Reenviar mensaje");
-    const [buttonColor, setButtonColor] = useState("violet");
+const SendButton = ({ phoneNumber, licencePlate }) => {
+    const [buttonText, setButtonText] = useState("Enviar mensaje");
+    const [buttonColor, setButtonColor] = useState("primary");
     const [loading, setLoading] = useState(false);
     const { updateReminderSent } = useContext(CarsContext);
 
+
     const handleButtonClick = async () => {
+
         try {
             setLoading(true);
             await sendNotification(phoneNumber, licencePlate);
 
-            setButtonText("Aviso reenviado");
-            setButtonColor("green");
+            setButtonText("Mensaje enviado");
+            setButtonColor("success");
 
             updateReminderSent(licencePlate, true);
         } catch (error) {
             console.error("Error al enviar el mensaje:", error);
 
             setButtonText("Error al enviar");
-            setButtonColor("red");
+            setButtonColor("danger");
         } finally {
             setLoading(false);
         }
@@ -32,7 +34,8 @@ const ResendButton = ({ phoneNumber, licencePlate }) => {
     return (
         <Button
             variant='contained'
-            sx={{ alignSelf: 'flex-end', padding: '0 8px', backgroundColor: buttonColor, width: '100%' }}
+            color={buttonColor}
+            sx={{ padding: '0 8px', marginTop: 2, width: '100%' }}
             onClick={handleButtonClick}
         >
             {loading ? "Enviando..." : buttonText}
@@ -40,4 +43,4 @@ const ResendButton = ({ phoneNumber, licencePlate }) => {
     );
 };
 
-export default ResendButton;
+export default SendButton;

@@ -1,13 +1,12 @@
 import { Box } from "@mui/material";
 import { DataGrid } from '@mui/x-data-grid';
-import MaintenanceButton from "../../admin/buttons/MaintainanceButton";
+import MaintenanceButton from "../../components/admin/buttons/MaintainanceButton";
 import { useContext } from "react";
 import { CarsContext } from "../../context/CarsContext";
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import { green } from '@mui/material/colors';
-import calculateRelativeDate from "../../util/Dates";
-import SendButton from "../../admin/buttons/SendButton";
-import ResendButton from "../../admin/buttons/ResendButton";
+import calculateRelativeDate from "../../components/util/Dates";
+import SendButton from "../../components/admin/buttons/SendButton";
+import ResendButton from "../../components/admin/buttons/ResendButton";
+
 
 const renderMaintenanceButton = (params) => {
     return params.row.inMaintenance ? <MaintenanceButton licencePlate={params.row.licensePlate} /> : <>-</>;

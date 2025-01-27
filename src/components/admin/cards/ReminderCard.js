@@ -1,6 +1,5 @@
 import React from "react";
 import { Card, CardContent, Typography, Box, Grid2 } from "@mui/material";
-import { differenceInDays, differenceInMonths } from "date-fns";
 import ResendButton from "../buttons/ResendButton";
 import calculateRelativeDate from "../../util/Dates";
 
