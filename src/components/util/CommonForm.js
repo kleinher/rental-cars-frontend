@@ -1,9 +1,10 @@
 // MechanicForm.jsx
 import React, { useState } from 'react';
 import { Box, TextField, Button, Typography } from '@mui/material';
-import CityAutocomplete from './CityAutocomplete';
+import CityAutocomplete from '../mechanic/CityAutocomplete';
+import { createDriver } from '../../client/DriversEndpoints';
 
-function MechanicForm({ onAddMechanic }) {
+function CommonForm({ handleClose }) {
     const [name, setName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [location, setLocation] = useState({
@@ -12,21 +13,23 @@ function MechanicForm({ onAddMechanic }) {
         longitude: null,
     });
 
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const newMechanic = {
             name,
             phoneNumber,
-            city: location.address,
             latitude: location.latitude,
             longitude: location.longitude,
         };
-        onAddMechanic(newMechanic);
+
+        createDriver(newMechanic);
 
         // Reseteamos
         setName('');
         setPhoneNumber('');
         setLocation({ address: '', latitude: null, longitude: null });
+        handleClose();
     };
 
     return (
@@ -65,9 +68,15 @@ function MechanicForm({ onAddMechanic }) {
                 <CityAutocomplete onSelectCity={(data) => setLocation(data)} />
             </Box>
 
+            <Button onClick={handleClose} color="primary">
+                Cancel
+            </Button>
+            <Button type="submit" color="primary">
+                Save
+            </Button>
         </Box>
     );
 }
 
-export default MechanicForm;
+export default CommonForm;
 

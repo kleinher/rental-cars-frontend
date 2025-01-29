@@ -2,7 +2,10 @@ import React from "react";
 import { CarsProvider } from "./context/CarsContext";
 import { DriverProvider } from "./context/DriverContext";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import BuildIcon from '@mui/icons-material/Build';
+import PersonIcon from '@mui/icons-material/Person';
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import { ReactRouterAppProvider } from '@toolpad/core/react-router';
 import { Outlet } from 'react-router';
 import logo from "./files/logo.png";
@@ -17,15 +20,26 @@ const NAVIGATION = [
         icon: <DashboardIcon />,
     },
     {
-        segment: 'user',
-        title: 'Users',
-        icon: <ShoppingCartIcon />,
+        segment: 'driver',
+        title: 'Conductores',
+        icon: <PersonIcon />,
+    },
+    {
+        segment: 'mechanic',
+        title: 'Mecanicos',
+        icon: <BuildIcon />,
+    },
+    {
+        segment: 'car',
+        title: 'Coches',
+        icon: <DirectionsCarIcon />,
     },
     {
         segment: 'new/admin',
         title: 'New Admin Page',
-        icon: <ShoppingCartIcon />,
+        icon: <AdminPanelSettingsIcon />,
     },
+
 
 ];
 

@@ -12,7 +12,7 @@ const columns = [
     { field: 'phoneNumber', headerName: 'Phone', width: 150 },
 ];
 
-const DriversPage = () => {
+const MechanicPage = () => {
     const { drivers } = useContext(DriverContext);
     const [open, setOpen] = useState(false);
 
@@ -28,7 +28,7 @@ const DriversPage = () => {
         <Box sx={{ height: 400, width: '100%' }}>
 
             <Button variant="outlined" onClick={handleClickOpen}>
-                Nuevo Conductor
+                Nuevo Mecanico
             </Button>
             <DataGrid
                 rows={drivers}
@@ -48,4 +48,4 @@ const DriversPage = () => {
     );
 };
 
-export default DriversPage;
+export default MechanicPage;

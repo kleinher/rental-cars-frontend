@@ -7,6 +7,8 @@ import Layout from "./layouts/dashboard";
 import AdminPage from "./pages/admin";
 import DriversPage from "./pages/DriversPage";
 import NewAdminPage from "./pages/new/NewAdmin";
+import CarPage from "./pages/CarPage";
+import MechanicPage from "./pages/MechanicPage";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const router = createBrowserRouter([
@@ -22,8 +24,16 @@ const router = createBrowserRouter([
                         Component: AdminPage,
                     },
                     {
-                        path: 'user',
+                        path: 'driver',
                         Component: DriversPage,
+                    },
+                    {
+                        path: 'mechanic',
+                        Component: MechanicPage,
+                    },
+                    {
+                        path: 'car',
+                        Component: CarPage,
                     },
                     {
                         path: 'new/admin',
