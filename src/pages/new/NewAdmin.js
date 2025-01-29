@@ -1,9 +1,9 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { DataGrid } from '@mui/x-data-grid';
 import MaintenanceButton from "../../components/admin/buttons/MaintainanceButton";
 import { useContext } from "react";
 import { CarsContext } from "../../context/CarsContext";
-import calculateRelativeDate from "../../components/util/Dates";
+import { calculateRelativeDate, calculateRelativeFutureDate } from "../../components/util/Dates";
 import SendButton from "../../components/admin/buttons/SendButton";
 import ResendButton from "../../components/admin/buttons/ResendButton";
 
@@ -12,7 +12,8 @@ const renderMaintenanceButton = (params) => {
     return params.row.inMaintenance ? <MaintenanceButton licencePlate={params.row.licensePlate} /> : <>-</>;
 }
 const projectedMaintainance = (params) => {
-    return params.row.estMaintainance ? params.row.estMaintainance : "-";
+    return calculateRelativeFutureDate(params.row.estMaintainance)
+        ;
 }
 const reminderSentDate = (params) => {
     return params.row.reminderSentDate ? calculateRelativeDate(params.row.reminderSentDate) : "-";
@@ -25,12 +26,12 @@ const sendReminder = (params) => {
 }
 
 const columns = [
-    { field: 'licensePlate', headerName: 'Matricula', width: 150 },
-    { field: 'driver', headerName: 'Conductor', width: 150 },
-    { field: 'estMaintainance', headerName: 'Mantenimiento estimado', renderCell: projectedMaintainance },
-    { field: 'reminderSent', headerName: 'Enviar aviso', flex: 1, renderCell: sendReminder },
-    { field: 'reminderSentDate', headerName: 'Fecha de aviso', width: 150, renderCell: reminderSentDate },
-    { field: 'inMaintenance', headerName: 'En mantenimiento', flex: 1, renderCell: renderMaintenanceButton },
+    { field: 'licensePlate', headerName: 'Matricula', },
+    { field: 'driver', headerName: 'Conductor' },
+    { field: 'estMaintainance', headerName: 'Mantenimiento estimado', renderCell: projectedMaintainance, flex: 1, },
+    { field: 'reminderSent', headerName: 'Enviar aviso', renderCell: sendReminder, flex: 1 },
+    { field: 'reminderSentDate', headerName: 'Fecha de aviso', renderCell: reminderSentDate, flex: 1 },
+    { field: 'inMaintenance', headerName: 'En mantenimiento', renderCell: renderMaintenanceButton, flex: 1 },
 ];
 
 
@@ -38,9 +39,8 @@ const columns = [
 const NewAdminPage = () => {
     const { cars } = useContext(CarsContext);
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', height: '75vh', width: '100%' }}>
-            <DataGrid rows={cars} columns={columns} />
-        </Box>
+        <DataGrid rows={cars} columns={columns} autosizeOptions={{
+        }} />
     );
 };
 

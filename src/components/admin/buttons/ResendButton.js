@@ -32,7 +32,7 @@ const ResendButton = ({ phoneNumber, licencePlate }) => {
     return (
         <Button
             variant='contained'
-            sx={{ alignSelf: 'flex-end', padding: '0 8px', backgroundColor: buttonColor, width: '100%' }}
+            sx={{ padding: '0 8px', backgroundColor: buttonColor, width: '160px' }}
             onClick={handleButtonClick}
         >
             {loading ? "Enviando..." : buttonText}

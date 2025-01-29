@@ -36,7 +36,7 @@ const NAVIGATION = [
     },
     {
         segment: 'new/admin',
-        title: 'New Admin Page',
+        title: 'Panel de Admininstrador',
         icon: <AdminPanelSettingsIcon />,
     },
 

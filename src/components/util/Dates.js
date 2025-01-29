@@ -1,6 +1,6 @@
 import { differenceInMonths, differenceInDays } from 'date-fns';
 
-const calculateRelativeDate = (dateString) => {
+export const calculateRelativeDate = (dateString) => {
     const updatedDate = new Date(dateString);
     const today = new Date();
 
@@ -14,6 +14,26 @@ const calculateRelativeDate = (dateString) => {
         return `Aviso enviado hace: ${days} día${days !== 1 ? "s" : ""}`;
     }
     return "Aviso enviado hoy";
+};
+
+export const calculateRelativeFutureDate = (dateString) => {
+    if (dateString === null) {
+        return "sin datos";
+    }
+
+    const updatedDate = new Date(dateString);
+    const today = new Date();
+
+    const months = differenceInMonths(updatedDate, today);
+    const days = differenceInDays(updatedDate, today) - months * 30;
+
+    if (months >= 1) {
+        return `dentro de ${months} mes${months > 1 ? "es" : ""} y ${days} día${days !== 1 ? "s" : ""}`;
+    } else if (days > 0) {
+        return `dentro de ${days} día${days !== 1 ? "s" : ""}`;
+    } else {
+        return "hoy";
+    }
 };
 
 export default calculateRelativeDate;
