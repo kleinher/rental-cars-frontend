@@ -25,7 +25,8 @@ const PeopleProvider = ({ children }) => {
 
     const addDriver = async (driver) => {
         try {
-            const newDriver = await createDriver(driver);
+            const newDriverId = await createDriver(driver);
+            const newDriver = { id: newDriverId, ...driver };
             setDrivers([...drivers, newDriver]);
         } catch (error) {
             console.error('Error creating driver:', error);

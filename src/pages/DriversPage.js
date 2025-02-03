@@ -5,16 +5,14 @@ import { useState } from 'react';
 import { Dialog, DialogContent, DialogTitle, Button } from '@mui/material';
 import CommonForm from '../components/util/CommonForm';
 import { PeopleContext } from '../context/PeopleContext';
-import { createDriver } from '../client/DriversEndpoints';
 
 const columns = [
-    { field: 'id', headerName: 'ID', width: 90 },
     { field: 'name', headerName: 'Name', width: 200 },
     { field: 'phoneNumber', headerName: 'Phone', width: 150 },
 ];
 
 const DriversPage = () => {
-    const { drivers } = useContext(PeopleContext);
+    const { addDriver, drivers } = useContext(PeopleContext);
     const [open, setOpen] = useState(false);
 
     const handleClickOpen = () => {
@@ -41,7 +39,7 @@ const DriversPage = () => {
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Agregar Conductor</DialogTitle>
                 <DialogContent>
-                    <CommonForm handleClose={handleClose} createFunction={createDriver} />
+                    <CommonForm handleClose={handleClose} createFunction={addDriver} />
                 </DialogContent>
 
             </Dialog>

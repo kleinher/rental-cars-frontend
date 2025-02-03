@@ -9,6 +9,7 @@ import CommonForm from '../components/util/CommonForm';
 const columns = [
     { field: 'name', headerName: 'Name', width: 200 },
     { field: 'phoneNumber', headerName: 'Phone', width: 150 },
+    { field: 'address', headerName: 'Address', width: 200 },
 ];
 
 const MechanicPage = () => {
@@ -34,7 +35,6 @@ const MechanicPage = () => {
                 columns={columns}
                 pageSize={5}
                 rowsPerPageOptions={[5]}
-                disableSelectionOnClick
             />
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Agregar Mecanico</DialogTitle>
