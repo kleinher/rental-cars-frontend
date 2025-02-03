@@ -1,10 +1,11 @@
 import { DataGrid } from '@mui/x-data-grid';
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { useContext } from 'react';
-import { DriverContext } from '../context/DriverContext';
 import { useState } from 'react';
-import { Dialog, DialogActions, DialogContent, DialogTitle, Button } from '@mui/material';
+import { Dialog, DialogContent, DialogTitle, Button } from '@mui/material';
 import CommonForm from '../components/util/CommonForm';
+import { PeopleContext } from '../context/PeopleContext';
+import { createDriver } from '../client/DriversEndpoints';
 
 const columns = [
     { field: 'id', headerName: 'ID', width: 90 },
@@ -13,7 +14,7 @@ const columns = [
 ];
 
 const DriversPage = () => {
-    const { drivers } = useContext(DriverContext);
+    const { drivers } = useContext(PeopleContext);
     const [open, setOpen] = useState(false);
 
     const handleClickOpen = () => {
@@ -38,9 +39,9 @@ const DriversPage = () => {
                 disableSelectionOnClick
             />
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Add Mechanic</DialogTitle>
+                <DialogTitle>Agregar Conductor</DialogTitle>
                 <DialogContent>
-                    <CommonForm handleClose={handleClose} />
+                    <CommonForm handleClose={handleClose} createFunction={createDriver} />
                 </DialogContent>
 
             </Dialog>

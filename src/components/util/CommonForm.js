@@ -2,9 +2,8 @@
 import React, { useState } from 'react';
 import { Box, TextField, Button, Typography } from '@mui/material';
 import CityAutocomplete from '../mechanic/CityAutocomplete';
-import { createDriver } from '../../client/DriversEndpoints';
 
-function CommonForm({ handleClose }) {
+function CommonForm({ handleClose, createFunction }) {
     const [name, setName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [location, setLocation] = useState({
@@ -14,17 +13,20 @@ function CommonForm({ handleClose }) {
     });
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const newMechanic = {
+        const newEntry = {
             name,
             phoneNumber,
+            address: location.address,
             latitude: location.latitude,
             longitude: location.longitude,
         };
 
-        createDriver(newMechanic);
-
+        const response = await createFunction(newEntry);
+        if (response) {
+            alert('Entrada creada correctamente');
+        }
         // Reseteamos
         setName('');
         setPhoneNumber('');
@@ -44,7 +46,6 @@ function CommonForm({ handleClose }) {
                 margin: '10px'  // centrar horizontalmente
             }}
         >
-            <Typography variant="h6">Agregar Mecánico</Typography>
 
             <TextField
                 label="Nombre"
@@ -61,19 +62,18 @@ function CommonForm({ handleClose }) {
             />
 
             <Box>
-                <Typography variant="subtitle1" sx={{ mb: 1 }}>
-                    Ciudad
-                </Typography>
-
                 <CityAutocomplete onSelectCity={(data) => setLocation(data)} />
             </Box>
 
-            <Button onClick={handleClose} color="primary">
-                Cancel
-            </Button>
-            <Button type="submit" color="primary">
-                Save
-            </Button>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+
+                <Button onClick={handleClose} color="primary">
+                    Cancel
+                </Button>
+                <Button type="submit" color="primary">
+                    Save
+                </Button>
+            </Box>
         </Box>
     );
 }

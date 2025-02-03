@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:4000/api/driver';
 
+
 export const getDrivers = async () => {
     try {
         const response = await axios.get(API_URL);
@@ -24,7 +25,8 @@ export const getDriverById = async (id) => {
 
 export const createDriver = async (driverData) => {
     try {
-        const response = await axios.post(API_URL, driverData);
+        const response = await axios.post(API_URL, { ...driverData });
+
         return response.data;
     } catch (error) {
         console.error('Error creating driver:', error);
