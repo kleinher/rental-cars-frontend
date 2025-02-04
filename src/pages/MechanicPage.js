@@ -7,9 +7,9 @@ import { Dialog, DialogActions, DialogContent, DialogTitle, Button } from '@mui/
 import CommonForm from '../components/util/CommonForm';
 
 const columns = [
-    { field: 'name', headerName: 'Name', width: 200 },
-    { field: 'phoneNumber', headerName: 'Phone', width: 150 },
-    { field: 'address', headerName: 'Address', width: 200 },
+    { field: 'name', headerName: 'Nombre', width: 200 },
+    { field: 'phoneNumber', headerName: 'Teléfono', width: 150 },
+    { field: 'address', headerName: 'Dirección', width: 200 },
 ];
 
 const MechanicPage = () => {
@@ -28,16 +28,17 @@ const MechanicPage = () => {
         <Box sx={{ height: 400, width: '100%' }}>
 
             <Button variant="outlined" onClick={handleClickOpen}>
-                Nuevo Mecanico
+                Nuevo Mecánico
             </Button>
             <DataGrid
                 rows={mechanics}
                 columns={columns}
                 pageSize={5}
                 rowsPerPageOptions={[5]}
+
             />
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Agregar Mecanico</DialogTitle>
+                <DialogTitle>Agregar Mecánico</DialogTitle>
                 <DialogContent>
                     <CommonForm handleClose={handleClose} createFunction={addMechanic} />
                 </DialogContent>

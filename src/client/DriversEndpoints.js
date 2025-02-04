@@ -2,8 +2,7 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:4000/api/driver';
 
-
-export const getDrivers = async () => {
+const getDrivers = async () => {
     try {
         const response = await axios.get(API_URL);
         return response.data;
@@ -13,7 +12,7 @@ export const getDrivers = async () => {
     }
 };
 
-export const getDriverById = async (id) => {
+const getDriverById = async (id) => {
     try {
         const response = await axios.get(`${API_URL}/${id}`);
         return response.data;
@@ -23,10 +22,9 @@ export const getDriverById = async (id) => {
     }
 };
 
-export const createDriver = async (driverData) => {
+const createDriver = async (driverData) => {
     try {
         const response = await axios.post(API_URL, { ...driverData });
-
         return response.data;
     } catch (error) {
         console.error('Error creating driver:', error);
@@ -34,7 +32,7 @@ export const createDriver = async (driverData) => {
     }
 };
 
-export const updateDriver = async (id, driverData) => {
+const updateDriver = async (id, driverData) => {
     try {
         const response = await axios.put(`${API_URL}/${id}`, driverData);
         return response.data;
@@ -44,7 +42,7 @@ export const updateDriver = async (id, driverData) => {
     }
 };
 
-export const deleteDriver = async (id) => {
+const deleteDriver = async (id) => {
     try {
         const response = await axios.delete(`${API_URL}/${id}`);
         return response.data;
@@ -52,4 +50,12 @@ export const deleteDriver = async (id) => {
         console.error(`Error deleting driver with ID ${id}:`, error);
         throw error;
     }
+};
+
+export default {
+    getDrivers,
+    getDriverById,
+    createDriver,
+    updateDriver,
+    deleteDriver
 };

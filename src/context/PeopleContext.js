@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { getDrivers, createDriver, deleteDriver } from '../client/DriversEndpoints';
+import DriversEndpoints from '../client/DriversEndpoints';
 import { getMechanics, createMechanic, deleteMechanic } from '../client/MechanicsEndpoints';
 
 const PeopleContext = createContext();
@@ -14,9 +14,18 @@ const PeopleProvider = ({ children }) => {
     }, []);
 
     // Drivers methods
+    const updateDriver = async (id, updatedDriver) => {
+        try {
+            await DriversEndpoints.updateDriver(id, updatedDriver);
+            setDrivers(drivers.map(driver => driver.id === id ? { ...driver, ...updatedDriver } : driver));
+        } catch (error) {
+            console.error(`Error updating driver with ID ${id}:`, error);
+        }
+    };
+
     const fetchDrivers = async () => {
         try {
-            const data = await getDrivers();
+            const data = await DriversEndpoints.getDrivers();
             setDrivers(data);
         } catch (error) {
             console.error('Error fetching drivers:', error);
@@ -25,7 +34,7 @@ const PeopleProvider = ({ children }) => {
 
     const addDriver = async (driver) => {
         try {
-            const newDriverId = await createDriver(driver);
+            const newDriverId = await DriversEndpoints.createDriver(driver);
             const newDriver = { id: newDriverId, ...driver };
             setDrivers([...drivers, newDriver]);
         } catch (error) {
@@ -35,7 +44,7 @@ const PeopleProvider = ({ children }) => {
 
     const removeDriver = async (id) => {
         try {
-            await deleteDriver(id);
+            await DriversEndpoints.deleteDriver(id);
             setDrivers(drivers.filter(driver => driver.id !== id));
         } catch (error) {
             console.error(`Error deleting driver with ID ${id}:`, error);
@@ -75,6 +84,7 @@ const PeopleProvider = ({ children }) => {
         <PeopleContext.Provider value={{
             drivers,
             mechanics,
+            updateDriver,
             addDriver,
             removeDriver,
             fetchDrivers,

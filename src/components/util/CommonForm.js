@@ -3,14 +3,15 @@ import React, { useState } from 'react';
 import { Box, TextField, Button, Typography } from '@mui/material';
 import CityAutocomplete from '../mechanic/CityAutocomplete';
 
-function CommonForm({ handleClose, createFunction }) {
-    const [name, setName] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
+function CommonForm({ datos, handleClose, createFunction }) {
+    const [name, setName] = useState(datos ? datos.name : '');
+    const [phoneNumber, setPhoneNumber] = useState(datos ? datos.phoneNumber : '');
     const [location, setLocation] = useState({
-        address: '',
-        latitude: null,
-        longitude: null,
+        address: datos ? datos.address : '',
+        latitude: datos ? datos.latitude : null,
+        longitude: datos ? datos.longitude : null,
     });
+    const id = datos ? datos.id : null;
 
 
     const handleSubmit = async (e) => {
@@ -23,7 +24,7 @@ function CommonForm({ handleClose, createFunction }) {
             longitude: location.longitude,
         };
 
-        const response = await createFunction(newEntry);
+        const response = id ? await createFunction(id, newEntry) : await createFunction(newEntry);
         if (response) {
             alert('Entrada creada correctamente');
         }
@@ -62,7 +63,7 @@ function CommonForm({ handleClose, createFunction }) {
             />
 
             <Box>
-                <CityAutocomplete onSelectCity={(data) => setLocation(data)} />
+                <CityAutocomplete addressParam={location.address} onSelectCity={(data) => setLocation(data)} />
             </Box>
 
             <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>

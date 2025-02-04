@@ -26,7 +26,7 @@ const NAVIGATION = [
     },
     {
         segment: 'mechanic',
-        title: 'Mecanicos',
+        title: 'Mecánicos',
         icon: <BuildIcon />,
     },
     {

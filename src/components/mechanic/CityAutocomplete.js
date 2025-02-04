@@ -5,8 +5,8 @@ import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-au
 // Importes de MUI
 import { TextField, Box, Paper, MenuItem, Typography } from '@mui/material';
 
-function CityAutocomplete({ onSelectCity }) {
-    const [address, setAddress] = useState('');
+function CityAutocomplete({ addressParam, onSelectCity }) {
+    const [address, setAddress] = useState(addressParam);
 
     const handleChange = (value) => {
         setAddress(value);

@@ -8,8 +8,8 @@ import CommonForm from '../components/util/CommonForm';
 
 const columns = [
     { field: 'id', headerName: 'ID', width: 90 },
-    { field: 'name', headerName: 'Name', width: 200 },
-    { field: 'phoneNumber', headerName: 'Phone', width: 150 },
+    { field: 'name', headerName: 'Nombre', width: 200 },
+    { field: 'phoneNumber', headerName: 'Teléfono', width: 150 },
 ];
 
 const CarPage = () => {
