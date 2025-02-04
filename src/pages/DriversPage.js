@@ -27,7 +27,6 @@ const DriversPage = () => {
 
     const handleOpenEdit = () => {
         setOpenEdit(true);
-
     };
 
     const handleCloseEdit = () => {
@@ -76,9 +75,6 @@ const DriversPage = () => {
                 rowsPerPageOptions={[5]}
                 disableSelectionOnClick
                 onRowClick={handleRowClick}
-            /*getRowClassName={(params) =>
-                params.id === selectedRow ? 'selected-row' : ''
-            }*/
             />
 
             <Dialog open={open} onClose={handleClose}>

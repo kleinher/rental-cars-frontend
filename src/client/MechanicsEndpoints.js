@@ -3,7 +3,7 @@ import { PeopleContext } from '../context/PeopleContext';
 
 const API_URL = 'http://localhost:4000/api/mechanic';
 
-export const getMechanics = async () => {
+const getMechanics = async () => {
     try {
         const response = await axios.get(API_URL);
         return response.data;
@@ -13,7 +13,7 @@ export const getMechanics = async () => {
     }
 };
 
-export const getMechanicById = async (id) => {
+const getMechanicById = async (id) => {
     try {
         const response = await axios.get(`${API_URL}/${id}`);
         return response.data;
@@ -23,7 +23,7 @@ export const getMechanicById = async (id) => {
     }
 };
 
-export const createMechanic = async (mechanicData) => {
+const createMechanic = async (mechanicData) => {
     try {
         const response = await axios.post(API_URL, { ...mechanicData });
         return response.data;
@@ -33,7 +33,7 @@ export const createMechanic = async (mechanicData) => {
     }
 };
 
-export const updateMechanic = async (id, mechanicData) => {
+const updateMechanic = async (id, mechanicData) => {
     try {
         const response = await axios.put(`${API_URL}/${id}`, mechanicData);
         return response.data;
@@ -43,7 +43,7 @@ export const updateMechanic = async (id, mechanicData) => {
     }
 };
 
-export const deleteMechanic = async (id) => {
+const deleteMechanic = async (id) => {
     try {
         const response = await axios.delete(`${API_URL}/${id}`);
         return response.data;
@@ -51,4 +51,12 @@ export const deleteMechanic = async (id) => {
         console.error(`Error deleting mechanic with ID ${id}:`, error);
         throw error;
     }
+};
+
+export default {
+    getMechanics,
+    getMechanicById,
+    createMechanic,
+    updateMechanic,
+    deleteMechanic
 };

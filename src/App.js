@@ -13,7 +13,7 @@ import { PeopleProvider } from "./context/PeopleContext";
 const NAVIGATION = [
     {
         kind: 'header',
-        title: 'Main items',
+        title: 'Menú',
     },
     {
         title: 'Matenimiento',

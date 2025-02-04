@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import DriversEndpoints from '../client/DriversEndpoints';
-import { getMechanics, createMechanic, deleteMechanic } from '../client/MechanicsEndpoints';
+import MechanicsEndpoints from '../client/MechanicsEndpoints';
 
 const PeopleContext = createContext();
 
@@ -14,15 +14,6 @@ const PeopleProvider = ({ children }) => {
     }, []);
 
     // Drivers methods
-    const updateDriver = async (id, updatedDriver) => {
-        try {
-            await DriversEndpoints.updateDriver(id, updatedDriver);
-            setDrivers(drivers.map(driver => driver.id === id ? { ...driver, ...updatedDriver } : driver));
-        } catch (error) {
-            console.error(`Error updating driver with ID ${id}:`, error);
-        }
-    };
-
     const fetchDrivers = async () => {
         try {
             const data = await DriversEndpoints.getDrivers();
@@ -51,10 +42,19 @@ const PeopleProvider = ({ children }) => {
         }
     };
 
+    const updateDriver = async (id, updatedDriver) => {
+        try {
+            await DriversEndpoints.updateDriver(id, updatedDriver);
+            setDrivers(drivers.map(driver => driver.id === id ? { ...driver, ...updatedDriver } : driver));
+        } catch (error) {
+            console.error(`Error updating driver with ID ${id}:`, error);
+        }
+    };
+
     // Mechanics methods
     const fetchMechanics = async () => {
         try {
-            const data = await getMechanics();
+            const data = await MechanicsEndpoints.getMechanics();
             setMechanics(data);
         } catch (error) {
             console.error('Error fetching mechanics:', error);
@@ -63,7 +63,7 @@ const PeopleProvider = ({ children }) => {
 
     const addMechanic = async (mechanic) => {
         try {
-            const newMechanicId = await createMechanic(mechanic);
+            const newMechanicId = await MechanicsEndpoints.createMechanic(mechanic);
             const newMechanic = { id: newMechanicId, ...mechanic };
             setMechanics([...mechanics, newMechanic]);
         } catch (error) {
@@ -73,10 +73,19 @@ const PeopleProvider = ({ children }) => {
 
     const removeMechanic = async (id) => {
         try {
-            await deleteMechanic(id);
+            await MechanicsEndpoints.deleteMechanic(id);
             setMechanics(mechanics.filter(mechanic => mechanic.id !== id));
         } catch (error) {
             console.error(`Error deleting mechanic with ID ${id}:`, error);
+        }
+    };
+
+    const updateMechanic = async (id, updateMechanic) => {
+        try {
+            await MechanicsEndpoints.updateMechanic(id, updateMechanic);
+            setMechanics(mechanics.map(mechanic => mechanic.id === id ? { ...mechanic, ...updateMechanic } : mechanic));
+        } catch (error) {
+            console.error(`Error updating mechanic with ID ${id}:`, error);
         }
     };
 
@@ -88,6 +97,7 @@ const PeopleProvider = ({ children }) => {
             addDriver,
             removeDriver,
             fetchDrivers,
+            updateMechanic,
             addMechanic,
             removeMechanic,
             fetchMechanics
