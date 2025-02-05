@@ -1,8 +1,8 @@
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { useContext } from 'react';
 import { PeopleContext } from '../context/PeopleContext';
 import { useState } from 'react';
-import { Dialog, DialogActions, DialogContent, DialogTitle, Button } from '@mui/material';
+import { Dialog, DialogContent, DialogTitle, Button } from '@mui/material';
 import CommonForm from '../components/util/CommonForm';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
