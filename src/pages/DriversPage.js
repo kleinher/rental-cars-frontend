@@ -1,4 +1,3 @@
-import { DataGrid } from '@mui/x-data-grid';
 import { Box } from '@mui/material';
 import { useContext } from 'react';
 import { useState } from 'react';
@@ -7,36 +6,20 @@ import CommonForm from '../components/util/CommonForm';
 import { PeopleContext } from '../context/PeopleContext';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import SaveIcon from '@mui/icons-material/Save';
+import CancelIcon from '@mui/icons-material/Close';
+import {
+    GridRowModes,
+    DataGrid,
+    GridActionsCellItem,
+    GridRowEditStopReasons,
+} from '@mui/x-data-grid';
 
-const columns = [
-    { field: 'name', headerName: 'Nombre', width: 200 },
-    { field: 'phoneNumber', headerName: 'Teléfono', width: 150 },
-    { field: 'address', headerName: 'Dirección', width: 200 },
-];
-
-const DriversPage = () => {
+export default function DriversPage() {
     const [open, setOpen] = useState(false);
-    const [openEdit, setOpenEdit] = useState(false);
-    const { addDriver, drivers, removeDriver, updateDriver } = useContext(PeopleContext);
-    const [selectedRow, setSelectedRow] = useState(null);
-
-    const handleRowClick = (params) => {
-        setSelectedRow(params.id === selectedRow?.id ? null : params.row);
-
-    };
-
-    const handleOpenEdit = () => {
-        setOpenEdit(true);
-    };
-
-    const handleCloseEdit = () => {
-        setOpenEdit(false);
-    };
-
-    const handleDelete = () => {
-        removeDriver(selectedRow.id);
-        setSelectedRow(null);
-    };
+    const { addDriver, drivers, removeDriver } = useContext(PeopleContext);
+    const [rows, setRows] = useState(drivers);
+    const [rowModesModel, setRowModesModel] = useState({});
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -46,35 +29,114 @@ const DriversPage = () => {
         setOpen(false);
     };
 
+    const handleRowEditStop = (params, event) => {
+        if (params.reason === GridRowEditStopReasons.rowFocusOut) {
+            event.defaultMuiPrevented = true;
+        }
+    };
+
+    const handleEditClick = (id) => () => {
+        setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
+    };
+
+    const handleSaveClick = (id) => () => {
+        setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+    };
+
+    const handleDeleteClick = (id) => () => {
+        removeDriver(id);
+    };
+
+    const handleCancelClick = (id) => () => {
+        setRowModesModel({
+            ...rowModesModel,
+            [id]: { mode: GridRowModes.View, ignoreModifications: true },
+        });
+
+        const editedRow = rows.find((row) => row.id === id);
+        if (editedRow.isNew) {
+            setRows(rows.filter((row) => row.id !== id));
+        }
+    };
+
+    const processRowUpdate = (newRow) => {
+        const updatedRow = { ...newRow, isNew: false };
+        setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+        return updatedRow;
+    };
+
+    const handleRowModesModelChange = (newRowModesModel) => {
+        setRowModesModel(newRowModesModel);
+    };
+
+    const columns = [
+        { field: 'name', headerName: 'Nombre', width: 200, editable: true },
+        { field: 'phoneNumber', headerName: 'Teléfono', width: 150, editable: true },
+        { field: 'address', headerName: 'Dirección', width: 200, editable: true },
+        {
+            field: 'actions',
+            type: 'actions',
+            headerName: 'Acciones',
+            width: 100,
+            cellClassName: 'actions',
+            getActions: ({ id }) => {
+                const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
+
+                if (isInEditMode) {
+                    return [
+                        <GridActionsCellItem
+                            icon={<SaveIcon />}
+                            label="Save"
+                            sx={{
+                                color: 'primary.main',
+                            }}
+                            onClick={handleSaveClick(id)}
+                        />,
+                        <GridActionsCellItem
+                            icon={<CancelIcon />}
+                            label="Cancel"
+                            className="textPrimary"
+                            onClick={handleCancelClick(id)}
+                            color="inherit"
+                        />,
+                    ];
+                }
+
+                return [
+                    <GridActionsCellItem
+                        icon={<EditOutlinedIcon />}
+                        label="Edit"
+                        className="textPrimary"
+                        onClick={handleEditClick(id)}
+                        color="inherit"
+                    />,
+                    <GridActionsCellItem
+                        icon={<DeleteOutlineIcon />}
+                        label="Delete"
+                        onClick={handleDeleteClick(id)}
+                        color="inherit"
+                    />,
+                ];
+            },
+        },
+    ];
+
     return (
         <Box sx={{ height: 400, width: '100%' }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Box>
                 <Button variant="outlined" onClick={handleClickOpen}>
                     Nuevo Conductor
                 </Button>
-                {selectedRow && (
-                    <Box sx={{ display: 'flex' }}>
-                        <Box justifyContent="center" alignItems="center">
-                            <Button variant='outlined' color="primary" onClick={handleOpenEdit}>
-                                <EditOutlinedIcon />
-                            </Button>
-                        </Box>
-                        <Box justifyContent="center" alignItems="center">
-                            <Button variant='outlined' color="error" onClick={handleDelete}>
-                                <DeleteOutlineIcon />
-                            </Button>
-                        </Box>
-                    </Box>
-                )}
             </Box>
 
             <DataGrid
                 rows={drivers}
                 columns={columns}
-                pageSize={5}
-                rowsPerPageOptions={[5]}
-                disableSelectionOnClick
-                onRowClick={handleRowClick}
+                editMode='row'
+                rowModesModel={rowModesModel}
+                onRowModesModelChange={handleRowModesModelChange}
+                onRowEditStop={handleRowEditStop}
+                processRowUpdate={processRowUpdate}
             />
 
             <Dialog open={open} onClose={handleClose}>
@@ -83,15 +145,6 @@ const DriversPage = () => {
                     <CommonForm handleClose={handleClose} createFunction={addDriver} datos={null} />
                 </DialogContent>
             </Dialog>
-
-            <Dialog open={openEdit} onClose={handleCloseEdit}>
-                <DialogTitle>Editar Conductor</DialogTitle>
-                <DialogContent>
-                    <CommonForm handleClose={handleCloseEdit} createFunction={updateDriver} datos={selectedRow} />
-                </DialogContent>
-            </Dialog>
         </Box>
     );
-};
-
-export default DriversPage;
+}
