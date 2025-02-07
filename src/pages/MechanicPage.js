@@ -17,7 +17,7 @@ import {
 
 export default function MechanicPage() {
     const [open, setOpen] = useState(false);
-    const { mechanics, addMechanic, removeMechanic } = useContext(PeopleContext);
+    const { mechanics, addMechanic, removeMechanic, updateMechanic } = useContext(PeopleContext);
     const [rows, setRows] = useState(mechanics);
     const [rowModesModel, setRowModesModel] = useState({});
 
@@ -61,6 +61,7 @@ export default function MechanicPage() {
 
     const processRowUpdate = (newRow) => {
         const updatedRow = { ...newRow, isNew: false };
+        updateMechanic(newRow.id, updatedRow);
         setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
         return updatedRow;
     };
@@ -136,7 +137,9 @@ export default function MechanicPage() {
                 rowModesModel={rowModesModel}
                 onRowModesModelChange={handleRowModesModelChange}
                 onRowEditStop={handleRowEditStop}
-                processRowUpdate={processRowUpdate}
+                processRowUpdate={(updatedRow, originalRow) =>
+                    processRowUpdate(updatedRow)
+                }
             />
 
             <Dialog open={open} onClose={handleClose}>

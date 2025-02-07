@@ -15,9 +15,12 @@ import {
     GridRowEditStopReasons,
 } from '@mui/x-data-grid';
 
+
+
+
 export default function DriversPage() {
     const [open, setOpen] = useState(false);
-    const { addDriver, drivers, removeDriver } = useContext(PeopleContext);
+    const { addDriver, drivers, removeDriver, updateDriver } = useContext(PeopleContext);
     const [rows, setRows] = useState(drivers);
     const [rowModesModel, setRowModesModel] = useState({});
 
@@ -61,6 +64,7 @@ export default function DriversPage() {
 
     const processRowUpdate = (newRow) => {
         const updatedRow = { ...newRow, isNew: false };
+        updateDriver(newRow.id, updatedRow);
         setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
         return updatedRow;
     };
@@ -136,7 +140,9 @@ export default function DriversPage() {
                 rowModesModel={rowModesModel}
                 onRowModesModelChange={handleRowModesModelChange}
                 onRowEditStop={handleRowEditStop}
-                processRowUpdate={processRowUpdate}
+                processRowUpdate={(updatedRow, originalRow) =>
+                    processRowUpdate(updatedRow)
+                }
             />
 
             <Dialog open={open} onClose={handleClose}>
