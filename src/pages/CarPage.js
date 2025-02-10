@@ -1,20 +1,24 @@
-import { DataGrid } from '@mui/x-data-grid';
 import { Box } from '@mui/material';
-import { useContext } from 'react';
-import { PeopleContext } from '../context/PeopleContext';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Dialog, DialogContent, DialogTitle, Button } from '@mui/material';
 import CarForm from '../components/util/CarForm';
-
-const columns = [
-    { field: 'id', headerName: 'ID', width: 90 },
-    { field: 'name', headerName: 'Nombre', width: 200 },
-    { field: 'phoneNumber', headerName: 'Teléfono', width: 150 },
-];
+import { PeopleContext } from '../context/PeopleContext';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import SaveIcon from '@mui/icons-material/Save';
+import CancelIcon from '@mui/icons-material/Close';
+import {
+    GridRowModes,
+    DataGrid,
+    GridActionsCellItem,
+    GridRowEditStopReasons,
+} from '@mui/x-data-grid';
+import { CarsContext } from '../context/CarsContext';
 
 const CarPage = () => {
-    const { drivers } = useContext(PeopleContext);
     const [open, setOpen] = useState(false);
+    const { cars, removeCar, updateCar } = useContext(CarsContext);
+    const [rowModesModel, setRowModesModel] = useState({});
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -24,24 +28,127 @@ const CarPage = () => {
         setOpen(false);
     };
 
+    const handleRowEditStop = (params, event) => {
+        if (params.reason === GridRowEditStopReasons.rowFocusOut) {
+            event.defaultMuiPrevented = true;
+        }
+    };
+
+    const handleEditClick = (id) => () => {
+        setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
+    };
+
+    const handleSaveClick = (id) => () => {
+        setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+    };
+
+    const handleDeleteClick = (id) => () => {
+        removeCar(id);
+    };
+
+    const handleCancelClick = (id) => () => {
+        setRowModesModel({
+            ...rowModesModel,
+            [id]: { mode: GridRowModes.View, ignoreModifications: true },
+        });
+    };
+
+    const processRowUpdate = (newRow) => {
+        const updatedRow = { ...newRow, isNew: false };
+        updateCar(newRow.id, updatedRow);
+        return updatedRow;
+    };
+
+    const handleRowModesModelChange = (newRowModesModel) => {
+        setRowModesModel(newRowModesModel);
+    };
+
+    const columns = [
+        { field: 'licensePlate', headerName: 'Matrícula', width: 130, editable: true },
+        { field: 'kilometers', headerName: 'Kilómetros', width: 130, editable: true },
+        { field: 'address', headerName: 'Dirección', width: 200, editable: true },
+        {
+            field: 'lastMaintainance',
+            headerName: 'Último Mantenimiento',
+            width: 180,
+            editable: true,
+            type: 'date',
+            valueFormatter: (params) => params ? new Date(params.value).toLocaleDateString() : 'No programado',
+        },
+        {
+            field: 'estMaintainance',
+            headerName: 'Próximo Mantenimiento',
+            width: 180,
+            editable: true,
+            type: 'date',
+            valueFormatter: (params) => params ? new Date(params.value).toLocaleDateString() : 'No programado',
+        },
+        {
+            field: 'inMaintenance',
+            headerName: 'En Mantenimiento',
+            width: 150,
+            editable: true,
+            type: 'boolean',
+        },
+        {
+            field: 'actions',
+            type: 'actions',
+            headerName: 'Acciones',
+            width: 100,
+            cellClassName: 'actions',
+            getActions: ({ id }) => {
+                const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
+
+                if (isInEditMode) {
+                    return [
+                        <GridActionsCellItem
+                            icon={<SaveIcon />}
+                            label="Save"
+                            onClick={handleSaveClick(id)}
+                        />,
+                        <GridActionsCellItem
+                            icon={<CancelIcon />}
+                            label="Cancel"
+                            onClick={handleCancelClick(id)}
+                        />,
+                    ];
+                }
+
+                return [
+                    <GridActionsCellItem
+                        icon={<EditOutlinedIcon />}
+                        label="Edit"
+                        onClick={handleEditClick(id)}
+                    />,
+                    <GridActionsCellItem
+                        icon={<DeleteOutlineIcon />}
+                        label="Delete"
+                        onClick={handleDeleteClick(id)}
+                    />,
+                ];
+            },
+        },
+    ];
+
     return (
         <Box sx={{ height: 400, width: '100%' }}>
             <Button variant="outlined" onClick={handleClickOpen}>
                 Nuevo Coche
             </Button>
             <DataGrid
-                rows={drivers}
+                rows={cars}
                 columns={columns}
-                pageSize={5}
-                rowsPerPageOptions={[5]}
-                disableSelectionOnClick
+                editMode="row"
+                rowModesModel={rowModesModel}
+                onRowModesModelChange={handleRowModesModelChange}
+                onRowEditStop={handleRowEditStop}
+                processRowUpdate={processRowUpdate}
             />
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Agregar Coche</DialogTitle>
                 <DialogContent>
                     <CarForm handleClose={handleClose} />
                 </DialogContent>
-
             </Dialog>
         </Box>
     );

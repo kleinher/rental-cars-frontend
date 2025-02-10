@@ -2,8 +2,9 @@ import React, { useState, useContext } from 'react';
 import { Box, TextField, Button, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import { PeopleContext } from '../../context/PeopleContext';
 import CityAutocomplete from '../mechanic/CityAutocomplete';
+import { createCar, updateCar } from '../../client/carsEndpoint';
 
-function CarForm({ datos, handleClose, createFunction }) {
+function CarForm({ datos, handleClose }) {
     const { drivers } = useContext(PeopleContext);
     const [licencePlate, setLicencePlate] = useState(datos ? datos.licencePlate : '');
     const [kilometers, setKilometers] = useState(datos ? datos.kilometers : '');
@@ -34,7 +35,7 @@ function CarForm({ datos, handleClose, createFunction }) {
             lastMaintainance,
         };
 
-        const response = id ? await createFunction(id, newEntry) : await createFunction(newEntry);
+        const response = id ? await updateCar(id, newEntry) : await createCar(newEntry);
         if (response) {
             alert('Entrada creada correctamente');
         }
