@@ -42,6 +42,7 @@ function CityAutocomplete({ addressParam, onSelectCity }) {
             {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                 <Box sx={{ position: 'relative' }}>
                     <TextField
+                        required
                         fullWidth
                         variant="outlined"
                         label="Ciudad"

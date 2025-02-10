@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { PeopleContext } from '../context/PeopleContext';
 import { useState } from 'react';
 import { Dialog, DialogContent, DialogTitle, Button } from '@mui/material';
-import CommonForm from '../components/util/CommonForm';
+import CarForm from '../components/util/CarForm';
 
 const columns = [
     { field: 'id', headerName: 'ID', width: 90 },
@@ -39,7 +39,7 @@ const CarPage = () => {
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Agregar Coche</DialogTitle>
                 <DialogContent>
-                    <CommonForm handleClose={handleClose} />
+                    <CarForm handleClose={handleClose} />
                 </DialogContent>
 
             </Dialog>

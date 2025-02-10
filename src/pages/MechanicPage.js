@@ -14,12 +14,15 @@ import {
     GridActionsCellItem,
     GridRowEditStopReasons,
 } from '@mui/x-data-grid';
+import CustomSnackbar from '../components/util/CustomSnackbar';
+
 
 export default function MechanicPage() {
     const [open, setOpen] = useState(false);
     const { mechanics, addMechanic, removeMechanic, updateMechanic } = useContext(PeopleContext);
     const [rows, setRows] = useState(mechanics);
     const [rowModesModel, setRowModesModel] = useState({});
+    const [snackbar, setSnackbar] = useState(null);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -60,8 +63,15 @@ export default function MechanicPage() {
     };
 
     const processRowUpdate = (newRow) => {
+        const phoneNumberPattern = /^\d{12}$/;
+        if (!phoneNumberPattern.test(newRow.phoneNumber)) {
+            setSnackbar({ children: 'El número debe tener 10 dígitos', severity: 'error' });
+            return rows.find((row) => row.id === newRow.id);
+        }
+
         const updatedRow = { ...newRow, isNew: false };
         updateMechanic(newRow.id, updatedRow);
+        setSnackbar({ children: 'Mecánico guardado exitosamente', severity: 'success' });
         setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
         return updatedRow;
     };
@@ -141,6 +151,10 @@ export default function MechanicPage() {
                     processRowUpdate(updatedRow)
                 }
             />
+
+            <CustomSnackbar snackbar={snackbar} setSnackbar={setSnackbar} />
+
+
 
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Agregar Conductor</DialogTitle>
