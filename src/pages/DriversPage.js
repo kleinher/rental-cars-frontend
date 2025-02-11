@@ -76,7 +76,11 @@ export default function DriversPage() {
     const columns = [
         { field: 'name', headerName: 'Nombre', width: 200, editable: true },
         { field: 'phoneNumber', headerName: 'Teléfono', width: 150, editable: true },
-        { field: 'address', headerName: 'Dirección', width: 200, editable: true },
+        {
+            field: 'address', headerName: 'Dirección', width: 200, editable: true,
+            valueFormatter: (params) => params ? params.formattedAddress : 'No programado'
+        },
+
         {
             field: 'actions',
             type: 'actions',
