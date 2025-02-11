@@ -64,9 +64,10 @@ const CarPage = () => {
     };
 
     const columns = [
-        { field: 'licensePlate', headerName: 'Matrícula', width: 130, editable: true },
+        { field: 'licencePlate', headerName: 'Matrícula', width: 130, editable: true },
         { field: 'kilometers', headerName: 'Kilómetros', width: 130, editable: true },
         { field: 'address', headerName: 'Dirección', width: 200, editable: true },
+        { field: 'driver', headerName: 'Conductor', width: 200, editable: true },
         {
             field: 'lastMaintainance',
             headerName: 'Último Mantenimiento',

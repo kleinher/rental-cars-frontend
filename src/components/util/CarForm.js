@@ -25,9 +25,11 @@ function CarForm({ datos, handleClose }) {
         const newEntry = {
             licencePlate,
             kilometers,
-            address: location.address,
-            latitude: location.latitude,
-            longitude: location.longitude,
+            address: {
+                address: location.address,
+                latitude: location.latitude,
+                longitude: location.longitude,
+            },
             estMaintainance,
             lastUpdate,
             driverId,

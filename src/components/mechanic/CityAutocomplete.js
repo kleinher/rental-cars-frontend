@@ -15,14 +15,15 @@ function CityAutocomplete({ addressParam, onSelectCity }) {
     const handleSelect = async (value) => {
         setAddress(value);
         try {
-            // 1. Hacemos geocode para obtener info detallada
             const results = await geocodeByAddress(value);
-            // 2. Obtenemos lat y lng
             const { lat, lng } = await getLatLng(results[0]);
 
-            // 3. Llamamos la función que recibimos por props
+
+            const formattedAddress = results[0].formatted_address;
+
+
             onSelectCity({
-                address: value,
+                address: formattedAddress,
                 latitude: lat,
                 longitude: lng,
             });
