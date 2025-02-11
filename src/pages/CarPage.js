@@ -66,23 +66,13 @@ const CarPage = () => {
     const columns = [
         { field: 'licencePlate', headerName: 'Matrícula', width: 130, editable: true },
         { field: 'kilometers', headerName: 'Kilómetros', width: 130, editable: true },
-        { field: 'address', headerName: 'Dirección', width: 200, editable: true },
-        { field: 'driver', headerName: 'Conductor', width: 200, editable: true },
         {
-            field: 'lastMaintainance',
-            headerName: 'Último Mantenimiento',
-            width: 180,
-            editable: true,
-            type: 'date',
-            valueFormatter: (params) => params ? new Date(params.value).toLocaleDateString() : 'No programado',
+            field: 'address', headerName: 'Dirección', width: 200, editable: true,
+            valueFormatter: (params) => params ? params.formattedAddress : ''
         },
         {
-            field: 'estMaintainance',
-            headerName: 'Próximo Mantenimiento',
-            width: 180,
-            editable: true,
-            type: 'date',
-            valueFormatter: (params) => params ? new Date(params.value).toLocaleDateString() : 'No programado',
+            field: 'driver', headerName: 'Conductor', width: 200, editable: true,
+            valueFormatter: (params) => params ? params.name : ''
         },
         {
             field: 'inMaintenance',
