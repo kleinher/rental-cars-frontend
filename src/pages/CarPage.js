@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import { useContext, useState } from 'react';
-import { Dialog, DialogContent, DialogTitle, Button } from '@mui/material';
+import { Dialog, DialogContent, DialogTitle, Button, InputLabel, Select, MenuItem, FormControl } from '@mui/material';
 import CarForm from '../components/util/CarForm';
 import { PeopleContext } from '../context/PeopleContext';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
@@ -18,7 +18,9 @@ import { CarsContext } from '../context/CarsContext';
 const CarPage = () => {
     const [open, setOpen] = useState(false);
     const { cars, removeCar, updateCar } = useContext(CarsContext);
+    const { drivers } = useContext(PeopleContext);
     const [rowModesModel, setRowModesModel] = useState({});
+    const [driverId, setDriverId] = useState('');
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -45,6 +47,29 @@ const CarPage = () => {
     const handleDeleteClick = (id) => () => {
         removeCar(id);
     };
+    const renderEditCellHandler = (params) => {
+        return (
+            <FormControl fullWidth>
+                <Select
+                    value={driverId}
+                    label="Driver"
+                    onChange={(e) => setDriverId(e.target.value)}
+                >
+                    {drivers.map((driver) => (
+                        <MenuItem key={driver.id} value={driver.id}>
+                            {driver.name}
+                        </MenuItem>
+                    ))}
+                </Select>
+            </FormControl >
+        );
+    }
+    const renderDriverHandler = (params) => {
+
+        return params.row.driver ? params.row.driver.name : '';
+
+
+    }
 
     const handleCancelClick = (id) => () => {
         setRowModesModel({
@@ -72,7 +97,9 @@ const CarPage = () => {
         },
         {
             field: 'driver', headerName: 'Conductor', width: 200, editable: true,
-            valueFormatter: (params) => params ? params.name : ''
+            renderCell: renderDriverHandler,
+            renderEditCell: renderEditCellHandler
+
         },
         {
             field: 'inMaintenance',
