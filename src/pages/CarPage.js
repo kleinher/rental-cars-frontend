@@ -89,16 +89,16 @@ const CarPage = () => {
     };
 
     const columns = [
-        { field: 'licencePlate', headerName: 'Matrícula', width: 130, editable: true },
-        { field: 'kilometers', headerName: 'Kilómetros', width: 130, editable: true },
+        { field: 'licencePlate', headerName: 'Matrícula', width: 130, editable: true, flex: 1, headerAlign: 'center', align: 'center' },
+        { field: 'kilometers', headerName: 'Kilómetros', width: 130, editable: true, flex: 1, headerAlign: 'center', align: 'center' },
         {
             field: 'address', headerName: 'Dirección', width: 200, editable: true,
-            valueFormatter: (params) => params ? params.formattedAddress : ''
+            valueFormatter: (params) => params ? params.formattedAddress : '', flex: 1, headerAlign: 'center', align: 'center'
         },
         {
             field: 'driver', headerName: 'Conductor', width: 200, editable: true,
             renderCell: renderDriverHandler,
-            renderEditCell: renderEditCellHandler
+            renderEditCell: renderEditCellHandler, flex: 1, headerAlign: 'center', align: 'center'
 
         },
         {
@@ -106,13 +106,14 @@ const CarPage = () => {
             headerName: 'En Mantenimiento',
             width: 150,
             editable: true,
-            type: 'boolean',
+            type: 'boolean', flex: 1, headerAlign: 'center', align: 'center'
         },
         {
             field: 'actions',
             type: 'actions',
             headerName: 'Acciones',
-            width: 100,
+            headerAlign: 'center',
+            flex: 1, align: 'center',
             cellClassName: 'actions',
             getActions: ({ id }) => {
                 const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;

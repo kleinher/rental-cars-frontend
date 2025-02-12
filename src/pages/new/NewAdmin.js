@@ -22,19 +22,17 @@ const sendReminder = (params) => {
     if (params.row.inMaintenance) {
         return <>-</>;
     }
-    return params.row.reminderSent ? <ResendButton phoneNumber={params.row.phoneNumber} licencePlate={params.row.licensePlate} /> : <SendButton phoneNumber={params.row.phoneNumber} licencePlate={params.row.licensePlate} />;
+    return params.row.reminderSent ? <ResendButton phoneNumber={params.row?.driver?.phoneNumber} licencePlate={params.row.licencePlate} /> : <SendButton phoneNumber={params.row?.driver?.phoneNumber} licencePlate={params.row.licencePlate} />;
 }
 
+
 const columns = [
-    { field: 'licencePlate', headerName: 'Matrícula', },
-    {
-        field: 'driver', headerName: 'Conductor',
-        valueFormatter: (params) => params ? params.name : ''
-    },
-    { field: 'estMaintainance', headerName: 'Mantenimiento estimado', renderCell: projectedMaintainance, flex: 1, },
-    { field: 'reminderSent', headerName: 'Enviar aviso', renderCell: sendReminder, flex: 1 },
-    { field: 'reminderSentDate', headerName: 'Fecha de aviso', renderCell: reminderSentDate, flex: 1 },
-    { field: 'inMaintenance', headerName: 'En mantenimiento', renderCell: renderMaintenanceButton, flex: 1 },
+    { field: 'licencePlate', headerName: 'Matrícula', align: 'center', headerAlign: 'center' },
+    { field: 'driver', headerName: 'Conductor', flex: 1, valueFormatter: (params) => params ? params.name : '', align: 'center', headerAlign: 'center' },
+    { field: 'estMaintainance', headerName: 'Mantenimiento estimado', renderCell: projectedMaintainance, flex: 1, align: 'center', headerAlign: 'center' },
+    { field: 'reminderSent', headerName: 'Enviar aviso', renderCell: sendReminder, flex: 1, align: 'center', headerAlign: 'center' },
+    { field: 'reminderSentDate', headerName: 'Fecha de aviso', renderCell: reminderSentDate, flex: 1, align: 'center', headerAlign: 'center' },
+    { field: 'inMaintenance', headerName: 'En mantenimiento', renderCell: renderMaintenanceButton, flex: 1, align: 'center', headerAlign: 'center' },
 ];
 
 

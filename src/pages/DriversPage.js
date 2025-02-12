@@ -74,19 +74,22 @@ export default function DriversPage() {
     };
 
     const columns = [
-        { field: 'name', headerName: 'Nombre', width: 200, editable: true },
-        { field: 'phoneNumber', headerName: 'Teléfono', width: 150, editable: true },
+        { field: 'name', headerName: 'Nombre', width: 200, editable: true, flex: 1, align: 'center', headerAlign: 'center' },
+        { field: 'phoneNumber', headerName: 'Teléfono', width: 150, editable: true, flex: 1, align: 'center', headerAlign: 'center' },
         {
             field: 'address', headerName: 'Dirección', width: 200, editable: true,
-            valueFormatter: (params) => params ? params.formattedAddress : 'No programado'
+            valueFormatter: (params) => params ? params.formattedAddress : 'No programado',
+            flex: 1, align: 'center', headerAlign: 'center'
         },
 
         {
             field: 'actions',
             type: 'actions',
             headerName: 'Acciones',
-            width: 100,
+            flex: 1,
             cellClassName: 'actions',
+            align: 'center',
+            headerAlign: 'center',
             getActions: ({ id }) => {
                 const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
 
