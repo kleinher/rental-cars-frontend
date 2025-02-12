@@ -1,8 +1,9 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { carEndMaintainance } from '../client/carsEndpoint';
+import { createCar, updateCar } from '../client/carsEndpoint';
+
 // Create the context
 export const CarsContext = createContext();
-
 // Create a provider component
 export const CarsProvider = ({ children }) => {
     const [cars, setCars] = useState([]);
@@ -43,8 +44,15 @@ export const CarsProvider = ({ children }) => {
         };
     }, []);
 
-    const addCar = (car) => {
-        setCars([...cars, car]);
+    const addCar = async (newEntry) => {
+        const response = await createCar(newEntry)
+        if (response) {
+            newEntry = {
+                id: response.id,
+                ...newEntry
+            }
+            setCars([...cars, newEntry]);
+        }
 
     };
 
