@@ -72,64 +72,51 @@ export default function DriversPage() {
     const handleRowModesModelChange = (newRowModesModel) => {
         setRowModesModel(newRowModesModel);
     };
+    const handleEdit = ({ id }) => {
+        const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
+
+        if (isInEditMode) {
+            return [
+                <GridActionsCellItem
+                    icon={<SaveIcon />}
+                    label="Save"
+                    sx={{
+                        color: 'primary.main',
+                    }}
+                    onClick={handleSaveClick(id)}
+                />,
+                <GridActionsCellItem
+                    icon={<CancelIcon />}
+                    label="Cancel"
+                    className="textPrimary"
+                    onClick={handleCancelClick(id)}
+                    color="inherit"
+                />,
+            ];
+        }
+
+        return [
+            <GridActionsCellItem
+                icon={<EditOutlinedIcon />}
+                label="Edit"
+                className="textPrimary"
+                onClick={handleEditClick(id)}
+                color="inherit"
+            />,
+            <GridActionsCellItem
+                icon={<DeleteOutlineIcon />}
+                label="Delete"
+                onClick={handleDeleteClick(id)}
+                color="inherit"
+            />,
+        ];
+    }
 
     const columns = [
         { field: 'name', headerName: 'Nombre', width: 200, editable: true, flex: 1, align: 'center', headerAlign: 'center' },
         { field: 'phoneNumber', headerName: 'Teléfono', width: 150, editable: true, flex: 1, align: 'center', headerAlign: 'center' },
-        {
-            field: 'address', headerName: 'Dirección', width: 200, editable: true,
-            valueFormatter: (params) => params ? params.formattedAddress : 'No programado',
-            flex: 1, align: 'center', headerAlign: 'center'
-        },
-
-        {
-            field: 'actions',
-            type: 'actions',
-            headerName: 'Acciones',
-            flex: 1,
-            cellClassName: 'actions',
-            align: 'center',
-            headerAlign: 'center',
-            getActions: ({ id }) => {
-                const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
-
-                if (isInEditMode) {
-                    return [
-                        <GridActionsCellItem
-                            icon={<SaveIcon />}
-                            label="Save"
-                            sx={{
-                                color: 'primary.main',
-                            }}
-                            onClick={handleSaveClick(id)}
-                        />,
-                        <GridActionsCellItem
-                            icon={<CancelIcon />}
-                            label="Cancel"
-                            className="textPrimary"
-                            onClick={handleCancelClick(id)}
-                            color="inherit"
-                        />,
-                    ];
-                }
-
-                return [
-                    <GridActionsCellItem
-                        icon={<EditOutlinedIcon />}
-                        label="Edit"
-                        className="textPrimary"
-                        onClick={handleEditClick(id)}
-                        color="inherit"
-                    />,
-                    <GridActionsCellItem
-                        icon={<DeleteOutlineIcon />}
-                        label="Delete"
-                        onClick={handleDeleteClick(id)}
-                        color="inherit"
-                    />,
-                ];
-            },
-        },
+        { field: 'address', headerName: 'Dirección', width: 200, editable: true, valueFormatter: (params) => params ? params.formattedAddress : 'No programado', flex: 1, align: 'center', headerAlign: 'center' },
+        { field: 'actions', type: 'actions', headerName: 'Acciones', flex: 1, cellClassName: 'actions', align: 'center', headerAlign: 'center', getActions: handleEdit },
     ];
 
     return (
