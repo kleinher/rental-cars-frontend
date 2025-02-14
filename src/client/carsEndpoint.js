@@ -1,8 +1,7 @@
 import wppClient from "./wppClient";
 import axios from 'axios';
 
-const API_URL = 'http://localhost:4000/api/car';
-
+const API_URL = `${process.env.REACT_APP_API_URL}/car`;
 export const createCar = async (carData) => {
     try {
         const response = await axios.post(API_URL, carData);
