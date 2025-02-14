@@ -1,6 +1,5 @@
 import React from "react";
 import { CarsProvider } from "./context/CarsContext";
-import DashboardIcon from "@mui/icons-material/Dashboard";
 import BuildIcon from '@mui/icons-material/Build';
 import PersonIcon from '@mui/icons-material/Person';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
@@ -16,8 +15,9 @@ const NAVIGATION = [
         title: 'Menú',
     },
     {
-        title: 'Matenimiento',
-        icon: <DashboardIcon />,
+        segment: 'new/admin',
+        title: 'Panel de Admininstrador',
+        icon: <AdminPanelSettingsIcon />,
     },
     {
         segment: 'driver',
@@ -34,12 +34,6 @@ const NAVIGATION = [
         title: 'Coches',
         icon: <DirectionsCarIcon />,
     },
-    {
-        segment: 'new/admin',
-        title: 'Panel de Admininstrador',
-        icon: <AdminPanelSettingsIcon />,
-    },
-
 
 ];
 

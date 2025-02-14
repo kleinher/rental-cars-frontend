@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, CircularProgress, IconButton } from "@mui/material";
 import { DataGrid } from '@mui/x-data-grid';
 import MaintenanceButton from "../../components/admin/buttons/MaintainanceButton";
 import { useContext } from "react";
@@ -6,6 +6,7 @@ import { CarsContext } from "../../context/CarsContext";
 import { calculateRelativeDate, calculateRelativeFutureDate } from "../../components/util/Dates";
 import SendButton from "../../components/admin/buttons/SendButton";
 import ResendButton from "../../components/admin/buttons/ResendButton";
+import LoginIcon from '@mui/icons-material/Login';
 
 
 const renderMaintenanceButton = (params) => {
@@ -38,10 +39,26 @@ const columns = [
 
 
 const NewAdminPage = () => {
-    const { cars } = useContext(CarsContext);
+    const { cars, qr, validated } = useContext(CarsContext);
     return (
-        <DataGrid rows={cars} columns={columns} autosizeOptions={{
-        }} />
+        <Box>
+            {
+                validated ? (
+                    <DataGrid rows={cars} columns={columns} />
+                ) : qr ? (
+                    <div>
+                        <h1>Escanea este QR:</h1>
+                        <img src={qr} alt="QR Code" />
+                    </div>
+                ) : (
+                    <Box display="flex" flexDirection="column" alignItems="center">
+                        <IconButton color="primary" size="large">
+                            <LoginIcon fontSize="large" />
+                        </IconButton>
+                        <CircularProgress style={{ marginTop: '10px' }} />
+                    </Box>
+                )}
+        </Box>
     );
 };
 

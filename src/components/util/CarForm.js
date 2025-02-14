@@ -17,7 +17,7 @@ function CarForm({ datos, handleClose }) {
     });
     const [estMaintainance, setEstMaintainance] = useState(datos ? datos.estMaintainance : '');
     const [lastUpdate, setLastUpdate] = useState(datos ? datos.lastUpdate : '');
-    const [driverId, setDriverId] = useState(datos ? datos.driverId : '');
+    const [driver, setDriver] = useState(datos ? datos.driverId : '');
     const [inMaintenance, setInMaintenance] = useState(datos ? datos.inMaintenance : false);
     const [lastMaintainance, setLastMaintainance] = useState(datos ? datos.lastMaintainance : '');
     const id = datos ? datos.id : null;
@@ -34,7 +34,8 @@ function CarForm({ datos, handleClose }) {
             },
             estMaintainance,
             lastUpdate,
-            driverId,
+            driver,
+            driverId: driver.id,
             inMaintenance,
             lastMaintainance,
         };
@@ -50,7 +51,7 @@ function CarForm({ datos, handleClose }) {
         setLocation({ address: '', latitude: null, longitude: null });
         setEstMaintainance('');
         setLastUpdate('');
-        setDriverId('');
+        setDriver('');
         setInMaintenance(false);
         setLastMaintainance('');
         handleClose();
@@ -90,12 +91,12 @@ function CarForm({ datos, handleClose }) {
             <FormControl fullWidth>
                 <InputLabel>Driver</InputLabel>
                 <Select
-                    value={driverId}
+                    value={driver}
                     label="Driver"
-                    onChange={(e) => setDriverId(e.target.value)}
+                    onChange={(e) => setDriver(e.target.value)}
                 >
                     {drivers.map((driver) => (
-                        <MenuItem key={driver.id} value={driver.id}>
+                        <MenuItem key={driver.id} value={driver}>
                             {driver.name}
                         </MenuItem>
                     ))}

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { PeopleContext } from '../context/PeopleContext';
 
 const API_URL = 'http://localhost:4000/api/mechanic';
 
