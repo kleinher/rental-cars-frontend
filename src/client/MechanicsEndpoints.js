@@ -5,6 +5,8 @@ const API_URL = `${process.env.REACT_APP_API_URL}/mechanic`;
 const getMechanics = async () => {
     try {
         const response = await axios.get(API_URL);
+        console.log("getMechanics" + API_URL)
+        console.log("getMechanics" + response.data)
         return response.data;
     } catch (error) {
         console.error('Error fetching mechanics:', error);
