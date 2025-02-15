@@ -5,6 +5,7 @@ const API_URL = `${process.env.REACT_APP_API_URL}/driver`;
 const getDrivers = async () => {
     try {
         const response = await axios.get(API_URL);
+        console.log("getDrivers" + response.data)
         return response.data;
     } catch (error) {
         console.error('Error fetching drivers:', error);
