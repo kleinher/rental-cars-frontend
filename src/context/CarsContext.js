@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { carEndMaintainance } from '../client/carsEndpoint';
-import { createCar, updateCar } from '../client/carsEndpoint';
+import { createCar } from '../client/carsEndpoint';
 
 // Create the context
 export const CarsContext = createContext();
@@ -22,8 +22,9 @@ export const CarsProvider = ({ children }) => {
             console.log('Mensaje recibido:', data);
 
             if (data.type === 'qr') {
-                setQr(data.qr); // Actualiza el QR recibido
-                setValidated(false); // Asegúrate de que no esté validado
+                setQr(data.qr);
+                console.log('QR recibido', data);
+                setValidated(false);
             } else if (data.type === 'validated') {
                 setValidated(data.value);
             } else if (data.type === 'cars') {
