@@ -2,7 +2,8 @@ import React, { createContext, useState, useEffect } from 'react';
 import { carEndMaintainance } from '../client/carsEndpoint';
 import { createCar } from '../client/carsEndpoint';
 
-// Create the context
+
+const REACT_APP_WS_URL = process.env.REACT_APP_WS_URL;
 export const CarsContext = createContext();
 // Create a provider component
 export const CarsProvider = ({ children }) => {
@@ -11,7 +12,7 @@ export const CarsProvider = ({ children }) => {
     const [validated, setValidated] = useState(false);
 
     useEffect(() => {
-        const socket = new WebSocket('ws://localhost:4000');
+        const socket = new WebSocket(REACT_APP_WS_URL);
 
         socket.onopen = () => {
             console.log('Conectado al WebSocket');
