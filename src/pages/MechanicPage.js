@@ -77,6 +77,9 @@ export default function MechanicPage() {
         setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
         return updatedRow;
     };
+    const renderEditCellHandler = (params) => {
+        return params.value ? params.value.formatted_address : 'No programado';
+    };
 
     const handleRowModesModelChange = (newRowModesModel) => {
         setRowModesModel(newRowModesModel);
@@ -88,7 +91,7 @@ export default function MechanicPage() {
         {
             field: 'address', headerName: 'Dirección', width: 200, editable: true,
             renderCell: renderAddressHandler,
-            flex: 1, align: 'center', headerAlign: 'center'
+            flex: 1, align: 'center', headerAlign: 'center', renderEditCell: renderEditCellHandler
         },
         {
             field: 'actions',

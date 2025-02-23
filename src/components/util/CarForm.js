@@ -2,12 +2,11 @@ import React, { useState, useContext } from 'react';
 import { Box, TextField, Button, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import { PeopleContext } from '../../context/PeopleContext';
 import CityAutocomplete from '../mechanic/CityAutocomplete';
-import { updateCar } from '../../client/carsEndpoint';
 import { CarsContext } from '../../context/CarsContext';
 
 function CarForm({ datos, handleClose }) {
+    const { addCar, updateCar } = useContext(CarsContext);
     const { drivers } = useContext(PeopleContext);
-    const { addCar } = useContext(CarsContext);
     const [licencePlate, setLicencePlate] = useState(datos ? datos.licencePlate : '');
     const [kilometers, setKilometers] = useState(datos ? datos.kilometers : '');
     const [location, setLocation] = useState({

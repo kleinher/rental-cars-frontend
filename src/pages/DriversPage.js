@@ -13,6 +13,7 @@ import {
     DataGrid,
     GridActionsCellItem,
     GridRowEditStopReasons,
+    renderEditInputCell,
 } from '@mui/x-data-grid';
 
 
@@ -45,6 +46,7 @@ export default function DriversPage() {
     const renderAddressHandler = (params) => {
         return params.value ? params.value.formatted_address : 'No programado';
     };
+
     const handleSaveClick = (id) => () => {
         setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
     };
@@ -70,6 +72,10 @@ export default function DriversPage() {
         updateDriver(newRow.id, updatedRow);
         setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
         return updatedRow;
+    };
+
+    const renderEditCellHandler = (params) => {
+        return params.value ? params.value.formatted_address : 'No programado';
     };
 
     const handleRowModesModelChange = (newRowModesModel) => {
@@ -118,7 +124,7 @@ export default function DriversPage() {
     const columns = [
         { field: 'name', headerName: 'Nombre', width: 200, editable: true, flex: 1, align: 'center', headerAlign: 'center' },
         { field: 'phoneNumber', headerName: 'Teléfono', width: 150, editable: true, flex: 1, align: 'center', headerAlign: 'center' },
-        { field: 'address', headerName: 'Dirección', width: 200, editable: true, flex: 1, align: 'center', headerAlign: 'center', renderCell: renderAddressHandler },
+        { field: 'address', headerName: 'Dirección', width: 200, editable: true, flex: 1, align: 'center', headerAlign: 'center', renderCell: renderAddressHandler, renderEditCell: renderEditCellHandler },
         { field: 'actions', type: 'actions', headerName: 'Acciones', flex: 1, cellClassName: 'actions', align: 'center', headerAlign: 'center', getActions: handleEdit },
     ];
 

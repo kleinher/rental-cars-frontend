@@ -1,7 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { carEndMaintainance } from '../client/carsEndpoint';
-import { createCar } from '../client/carsEndpoint';
-
+import { carEndMaintainance } from '../client/CarEndpoint';
+import CarEndpoint from '../client/CarEndpoint';
 
 const REACT_APP_WS_URL = process.env.REACT_APP_WS_URL;
 export const CarsContext = createContext();
@@ -47,7 +46,7 @@ export const CarsProvider = ({ children }) => {
     }, []);
 
     const addCar = async (newEntry) => {
-        const response = await createCar(newEntry)
+        const response = await CarEndpoint.createCar(newEntry)
         if (response) {
             newEntry = {
                 id: response.id,
@@ -63,9 +62,11 @@ export const CarsProvider = ({ children }) => {
 
     };
 
-    const updateCar = (updatedCar) => {
-        setCars(cars.map(car => (car.id === updatedCar.id ? updatedCar : car)));
-
+    const updateCar = async (id, data) => {
+        const response = await CarEndpoint.updateCar(id, data);
+        if (response) {
+            setCars(cars.map(car => (car.id === id ? { ...car, ...data } : car)));
+        }
     };
 
     const updateReminderSent = (carId, reminderSent) => {
@@ -74,7 +75,7 @@ export const CarsProvider = ({ children }) => {
     };
 
     const updateCarMaintenanceStatus = (licensePlate) => {
-        carEndMaintainance(licensePlate);
+        CarEndpoint.carEndMaintainance(licensePlate);
 
     };
 

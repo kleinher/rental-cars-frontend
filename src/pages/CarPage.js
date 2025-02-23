@@ -20,7 +20,7 @@ const CarPage = () => {
     const { cars, removeCar, updateCar } = useContext(CarsContext);
     const { drivers } = useContext(PeopleContext);
     const [rowModesModel, setRowModesModel] = useState({});
-    const [driverId, setDriverId] = useState('');
+    const [driver, setDriver] = useState('');
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -41,9 +41,14 @@ const CarPage = () => {
     };
 
     const handleEditClick = (id) => () => {
+        const row = cars.find((car) => car.id === id);
+        const driver = drivers.find((driver) => driver.id === row.driverId);
+        setDriver(driver);
         setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
     };
-
+    const renderEditCellAddressHandler = (params) => {
+        return params.value ? params.value.formatted_address : 'No programado';
+    };
     const handleSaveClick = (id) => () => {
         setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
     };
@@ -55,12 +60,12 @@ const CarPage = () => {
         return (
             <FormControl fullWidth>
                 <Select
-                    value={driverId}
+                    value={driver}
                     label="Driver"
-                    onChange={(e) => setDriverId(e.target.value)}
+                    onChange={(e) => setDriver(e.target.value)}
                 >
                     {drivers.map((driver) => (
-                        <MenuItem key={driver.id} value={driver.id}>
+                        <MenuItem key={driver.id} value={driver}>
                             {driver.name}
                         </MenuItem>
                     ))}
@@ -83,7 +88,7 @@ const CarPage = () => {
     };
 
     const processRowUpdate = (newRow) => {
-        const updatedRow = { ...newRow, isNew: false };
+        const updatedRow = { ...newRow, isNew: false, driver: driver, driverId: driver.id };
         updateCar(newRow.id, updatedRow);
         return updatedRow;
     };
@@ -98,6 +103,7 @@ const CarPage = () => {
         {
             field: 'address', headerName: 'Dirección', width: 200, editable: true,
             renderCell: renderAddressHandler, flex: 1, headerAlign: 'center', align: 'center'
+            , renderEditCell: renderEditCellAddressHandler
         },
         {
             field: 'driver', headerName: 'Conductor', width: 200, editable: true,
@@ -123,6 +129,7 @@ const CarPage = () => {
                 const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
 
                 if (isInEditMode) {
+
                     return [
                         <GridActionsCellItem
                             icon={<SaveIcon />}
@@ -166,6 +173,11 @@ const CarPage = () => {
                 onRowModesModelChange={handleRowModesModelChange}
                 onRowEditStop={handleRowEditStop}
                 processRowUpdate={processRowUpdate}
+                onCellDoubleClick={(params, event) => {
+                    if (!event.ctrlKey) {
+                        event.defaultMuiPrevented = true;
+                    }
+                }}
             />
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Agregar Coche</DialogTitle>

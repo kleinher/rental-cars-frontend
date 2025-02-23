@@ -4,7 +4,6 @@ import App from "./App";
 import { createBrowserRouter, RouterProvider } from 'react-router';
 import "./index.css"; // Opcional, si estás usando estilos
 import Layout from "./layouts/dashboard";
-import AdminPage from "./pages/admin";
 import DriversPage from "./pages/DriversPage";
 import NewAdminPage from "./pages/new/NewAdmin";
 import CarPage from "./pages/CarPage";
@@ -21,7 +20,7 @@ const router = createBrowserRouter([
                 children: [
                     {
                         path: '',
-                        Component: AdminPage,
+                        Component: NewAdminPage,
                     },
                     {
                         path: 'driver',
