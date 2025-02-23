@@ -45,7 +45,9 @@ export default function MechanicPage() {
     const handleSaveClick = (id) => () => {
         setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
     };
-
+    const renderAddressHandler = (params) => {
+        return params.value ? params.value.formatted_address : 'No programado';
+    };
     const handleDeleteClick = (id) => () => {
         removeMechanic(id);
     };
@@ -85,7 +87,7 @@ export default function MechanicPage() {
         { field: 'phoneNumber', headerName: 'Teléfono', width: 150, editable: true, flex: 1, align: 'center', headerAlign: 'center' },
         {
             field: 'address', headerName: 'Dirección', width: 200, editable: true,
-            valueFormatter: (params) => params ? params.formattedAddress : '',
+            renderCell: renderAddressHandler,
             flex: 1, align: 'center', headerAlign: 'center'
         },
         {

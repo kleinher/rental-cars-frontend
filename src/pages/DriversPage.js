@@ -42,6 +42,9 @@ export default function DriversPage() {
         setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
     };
 
+    const renderAddressHandler = (params) => {
+        return params.value ? params.value.formatted_address : 'No programado';
+    };
     const handleSaveClick = (id) => () => {
         setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
     };
@@ -115,7 +118,7 @@ export default function DriversPage() {
     const columns = [
         { field: 'name', headerName: 'Nombre', width: 200, editable: true, flex: 1, align: 'center', headerAlign: 'center' },
         { field: 'phoneNumber', headerName: 'Teléfono', width: 150, editable: true, flex: 1, align: 'center', headerAlign: 'center' },
-        { field: 'address', headerName: 'Dirección', width: 200, editable: true, valueFormatter: (params) => params ? params.formattedAddress : 'No programado', flex: 1, align: 'center', headerAlign: 'center' },
+        { field: 'address', headerName: 'Dirección', width: 200, editable: true, flex: 1, align: 'center', headerAlign: 'center', renderCell: renderAddressHandler },
         { field: 'actions', type: 'actions', headerName: 'Acciones', flex: 1, cellClassName: 'actions', align: 'center', headerAlign: 'center', getActions: handleEdit },
     ];
 

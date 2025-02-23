@@ -36,6 +36,10 @@ const CarPage = () => {
         }
     };
 
+    const renderAddressHandler = (params) => {
+        return params.value ? params.value.formatted_address : 'No programado';
+    };
+
     const handleEditClick = (id) => () => {
         setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
     };
@@ -93,7 +97,7 @@ const CarPage = () => {
         { field: 'kilometers', headerName: 'Kilómetros', width: 130, editable: true, flex: 1, headerAlign: 'center', align: 'center' },
         {
             field: 'address', headerName: 'Dirección', width: 200, editable: true,
-            valueFormatter: (params) => params ? params.formattedAddress : '', flex: 1, headerAlign: 'center', align: 'center'
+            renderCell: renderAddressHandler, flex: 1, headerAlign: 'center', align: 'center'
         },
         {
             field: 'driver', headerName: 'Conductor', width: 200, editable: true,
