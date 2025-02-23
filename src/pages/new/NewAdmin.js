@@ -30,7 +30,7 @@ const sendReminder = (params) => {
 const columns = [
     { field: 'licencePlate', headerName: 'Matrícula', align: 'center', headerAlign: 'center' },
     { field: 'driver', headerName: 'Conductor', flex: 1, valueFormatter: (params) => params ? params.name : '', align: 'center', headerAlign: 'center' },
-    { field: 'estMaintainance', headerName: 'Mantenimiento estimado', renderCell: projectedMaintainance, flex: 1, align: 'center', headerAlign: 'center' },
+    { field: 'estMaintainance', headerName: 'Mantenimiento estimado', renderCell: projectedMaintainance, flex: 1, align: 'left', headerAlign: 'center' },
     { field: 'reminderSent', headerName: 'Enviar aviso', renderCell: sendReminder, flex: 1, align: 'center', headerAlign: 'center' },
     { field: 'reminderSentDate', headerName: 'Fecha de aviso', renderCell: reminderSentDate, flex: 1, align: 'center', headerAlign: 'center' },
     { field: 'inMaintenance', headerName: 'En mantenimiento', renderCell: renderMaintenanceButton, flex: 1, align: 'center', headerAlign: 'center' },
