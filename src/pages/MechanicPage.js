@@ -8,6 +8,8 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
+import DeleteDialog from '../components/util/DeleteDialog';
+
 import {
     GridRowModes,
     DataGrid,
@@ -23,7 +25,8 @@ export default function MechanicPage() {
     const [rows, setRows] = useState(mechanics);
     const [rowModesModel, setRowModesModel] = useState({});
     const [snackbar, setSnackbar] = useState(null);
-
+    const [openDelete, setOpenDelete] = useState(false);
+    const [idToRemove, setIdToRemove] = useState('');
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -49,7 +52,8 @@ export default function MechanicPage() {
         return params.value ? params.value.formatted_address : 'No programado';
     };
     const handleDeleteClick = (id) => () => {
-        removeMechanic(id);
+        setIdToRemove(id);
+        setOpenDelete(true);
     };
 
     const handleCancelClick = (id) => () => {
@@ -165,6 +169,7 @@ export default function MechanicPage() {
 
             <CustomSnackbar snackbar={snackbar} setSnackbar={setSnackbar} />
 
+            <DeleteDialog open={openDelete} onClose={() => setOpenDelete(false)} onConfirm={() => { removeMechanic(idToRemove); setOpenDelete(false); }} />
 
 
             <Dialog open={open} onClose={handleClose}>

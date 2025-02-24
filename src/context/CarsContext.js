@@ -70,8 +70,7 @@ export const CarsProvider = ({ children }) => {
     };
 
     const updateReminderSent = (carId, reminderSent) => {
-        setCars(cars.map(car => (car.licensePlate === carId ? { ...car, reminderSent, reminderSentDate: new Date() } : car)));
-
+        setCars(cars.map(car => (car.licencePlate === carId ? { ...car, reminderSent: reminderSent, reminderSentDate: new Date() } : car)));
     };
 
     const updateCarMaintenanceStatus = (licensePlate) => {

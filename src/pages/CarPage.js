@@ -7,6 +7,8 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
+import DeleteDialog from '../components/util/DeleteDialog';
+
 import {
     GridRowModes,
     DataGrid,
@@ -16,7 +18,9 @@ import {
 import { CarsContext } from '../context/CarsContext';
 
 const CarPage = () => {
+    const [idToRemove, setIdToRemove] = useState('');
     const [open, setOpen] = useState(false);
+    const [openDelete, setOpenDelete] = useState(false);
     const { cars, removeCar, updateCar } = useContext(CarsContext);
     const { drivers } = useContext(PeopleContext);
     const [rowModesModel, setRowModesModel] = useState({});
@@ -53,9 +57,12 @@ const CarPage = () => {
         setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
     };
 
+
     const handleDeleteClick = (id) => () => {
-        removeCar(id);
+        setIdToRemove(id);
+        setOpenDelete(true);
     };
+
     const renderEditCellHandler = (params) => {
         return (
             <FormControl fullWidth>
@@ -162,6 +169,7 @@ const CarPage = () => {
 
     return (
         <Box sx={{ height: 400, width: '100%' }}>
+
             <Button variant="outlined" onClick={handleClickOpen}>
                 Nuevo Coche
             </Button>
@@ -184,7 +192,10 @@ const CarPage = () => {
                 <DialogContent>
                     <CarForm handleClose={handleClose} />
                 </DialogContent>
+
             </Dialog>
+            <DeleteDialog open={openDelete} onClose={() => setOpenDelete(false)} onConfirm={() => { removeCar(idToRemove); setOpenDelete(false); }} />
+
         </Box>
     );
 };

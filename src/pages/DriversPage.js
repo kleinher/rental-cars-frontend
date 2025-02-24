@@ -8,6 +8,8 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
+import DeleteDialog from '../components/util/DeleteDialog';
+
 import {
     GridRowModes,
     DataGrid,
@@ -24,6 +26,8 @@ export default function DriversPage() {
     const { addDriver, drivers, removeDriver, updateDriver } = useContext(PeopleContext);
     const [rows, setRows] = useState(drivers);
     const [rowModesModel, setRowModesModel] = useState({});
+    const [openDelete, setOpenDelete] = useState(false);
+    const [idToRemove, setIdToRemove] = useState('');
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -52,7 +56,8 @@ export default function DriversPage() {
     };
 
     const handleDeleteClick = (id) => () => {
-        removeDriver(id);
+        setIdToRemove(id);
+        setOpenDelete(true);
     };
 
     const handleCancelClick = (id) => () => {
@@ -154,6 +159,9 @@ export default function DriversPage() {
                     <CommonForm handleClose={handleClose} createFunction={addDriver} datos={null} />
                 </DialogContent>
             </Dialog>
+
+            <DeleteDialog open={openDelete} onClose={() => setOpenDelete(false)} onConfirm={() => { removeDriver(idToRemove); setOpenDelete(false); }} />
+
         </Box>
     );
 }
