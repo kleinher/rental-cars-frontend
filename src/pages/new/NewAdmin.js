@@ -48,7 +48,7 @@ const NewAdminPage = () => {
                 ) : qr ? (
                     <Box borderRadius={4} p={2} boxShadow={3}>
                         <h1>Escanea este QR:</h1>
-                        <img src={qr} alt="QR Code" style={{ borderRadius: '4px' }} />
+                        <img src={qr} alt="QR Code" style={{ borderRadius: '25px' }} />
                     </Box>
                 ) : (
                     <Box display="flex" flexDirection="column" alignItems="center">
