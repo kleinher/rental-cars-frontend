@@ -16,7 +16,6 @@ const SendButton = ({ phoneNumber, licencePlate }) => {
         try {
             setLoading(true);
             await sendNotification(phoneNumber, licencePlate);
-
             setButtonText("Mensaje enviado");
             setButtonColor("success");
 
