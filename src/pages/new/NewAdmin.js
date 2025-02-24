@@ -46,10 +46,10 @@ const NewAdminPage = () => {
                 validated ? (
                     <DataGrid rows={cars} columns={columns} />
                 ) : qr ? (
-                    <div>
+                    <Box borderRadius={4} p={2} boxShadow={3}>
                         <h1>Escanea este QR:</h1>
                         <img src={qr} alt="QR Code" />
-                    </div>
+                    </Box>
                 ) : (
                     <Box display="flex" flexDirection="column" alignItems="center">
                         <IconButton color="primary" size="large">
