@@ -58,6 +58,7 @@ export const CarsProvider = ({ children }) => {
     };
 
     const removeCar = (carId) => {
+        CarEndpoint.deleteCar(carId);
         setCars(cars.filter(car => car.id !== carId));
 
     };

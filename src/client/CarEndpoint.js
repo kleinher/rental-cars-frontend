@@ -24,6 +24,17 @@ const CarEndpoint = {
         }
     },
 
+    async deleteCar(id) {
+        try {
+            const response = await axios.delete(`${API_URL}/${id}`);
+            return response.data;
+        } catch (error) {
+            console.error(`Error deleting car with ID ${id}:`, error);
+            throw error;
+        }
+    },
+
+
     async carEndMaintainance(licencePlate) {
         const api = wppClient;
 
