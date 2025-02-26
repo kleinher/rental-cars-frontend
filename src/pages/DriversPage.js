@@ -76,11 +76,12 @@ export default function DriversPage() {
 
     const handleCreateDriver = (newDriver) => {
         if (!validateNumber(newDriver.phoneNumber)) {
-            return
+            return false;
         }
         addDriver(newDriver);
         setRows([...rows, newDriver]);
         setSnackbar({ children: 'Conductor creado exitosamente', severity: 'success' });
+        return true;
     }
 
     const validateNumber = (phoneNumber) => {
@@ -91,6 +92,7 @@ export default function DriversPage() {
         }
         return true;
     }
+
     const processRowUpdate = (newRow) => {
 
         if (!validateNumber(newRow.phoneNumber)) {

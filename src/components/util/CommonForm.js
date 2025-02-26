@@ -25,8 +25,8 @@ function CommonForm({ datos, handleClose, createFunction }) {
         };
 
         const response = id ? await createFunction(id, newEntry) : await createFunction(newEntry);
-        if (response) {
-            alert('Entrada creada correctamente');
+        if (!response) {
+            return;
         }
         // Reseteamos
         setName('');

@@ -67,11 +67,26 @@ export default function MechanicPage() {
             setRows(rows.filter((row) => row.id !== id));
         }
     };
+    const handleCreateMechanic = (newMechanic) => {
+        if (!validateNumber(newMechanic.phoneNumber)) {
+            return false;
+        }
+        addMechanic(newMechanic);
+        setRows([...rows, newMechanic]);
+        setSnackbar({ children: 'Mecánico creado exitosamente', severity: 'success' });
+        return true;
+    };
+    const validateNumber = (phoneNumber) => {
+        const phoneNumberPattern = /^\d{13}$/;
+        if (!phoneNumberPattern.test(phoneNumber)) {
+            setSnackbar({ children: 'El número debe tener 13 dígitos', severity: 'error' });
+            return false;
+        }
+        return true;
+    }
 
     const processRowUpdate = (newRow) => {
-        const phoneNumberPattern = /^\d{13}$/;
-        if (!phoneNumberPattern.test(newRow.phoneNumber)) {
-            setSnackbar({ children: 'El número debe tener 13 dígitos', severity: 'error' });
+        if (!validateNumber(newRow.phoneNumber)) {
             return rows.find((row) => row.id === newRow.id);
         }
 
@@ -187,7 +202,7 @@ export default function MechanicPage() {
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Agregar Conductor</DialogTitle>
                 <DialogContent>
-                    <CommonForm handleClose={handleClose} createFunction={addMechanic} datos={null} />
+                    <CommonForm handleClose={handleClose} createFunction={handleCreateMechanic} datos={null} />
                 </DialogContent>
             </Dialog>
         </Box>
