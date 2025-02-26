@@ -13,8 +13,7 @@ const renderMaintenanceButton = (params) => {
     return params.row.inMaintenance ? <MaintenanceButton licencePlate={params.row.licencePlate} /> : <>-</>;
 }
 const projectedMaintainance = (params) => {
-    return calculateRelativeFutureDate(params.row.estMaintainance)
-        ;
+    return calculateRelativeFutureDate(params.row.estMaintainance);
 }
 const reminderSentDate = (params) => {
     return params.row.reminderSentDate ? calculateRelativeDate(params.row.reminderSentDate) : "-";
