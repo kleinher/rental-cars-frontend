@@ -165,6 +165,11 @@ export default function MechanicPage() {
                 processRowUpdate={(updatedRow, originalRow) =>
                     processRowUpdate(updatedRow)
                 }
+                onCellDoubleClick={(params, event) => {
+                    if (!event.ctrlKey) {
+                        event.defaultMuiPrevented = true;
+                    }
+                }}
             />
 
             <CustomSnackbar snackbar={snackbar} setSnackbar={setSnackbar} />

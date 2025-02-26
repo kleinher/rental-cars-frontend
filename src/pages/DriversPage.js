@@ -158,6 +158,11 @@ export default function DriversPage() {
                 processRowUpdate={(updatedRow, originalRow) =>
                     processRowUpdate(updatedRow)
                 }
+                onCellDoubleClick={(params, event) => {
+                    if (!event.ctrlKey) {
+                        event.defaultMuiPrevented = true;
+                    }
+                }}
             />
 
             <Dialog open={open} onClose={handleClose}>

@@ -10,7 +10,7 @@ import LoginIcon from '@mui/icons-material/Login';
 
 
 const renderMaintenanceButton = (params) => {
-    return params.row.inMaintenance ? <MaintenanceButton licencePlate={params.row.licensePlate} /> : <>-</>;
+    return params.row.inMaintenance ? <MaintenanceButton licencePlate={params.row.licencePlate} /> : <>-</>;
 }
 const projectedMaintainance = (params) => {
     return calculateRelativeFutureDate(params.row.estMaintainance)
