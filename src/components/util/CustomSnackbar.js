@@ -6,7 +6,6 @@ export default function CustomSnackbar({ snackbar, setSnackbar }) {
 
     const handleCloseSnackbar = () => setSnackbar(null);
 
-
     return (
         <Box>
             {!!snackbar && (

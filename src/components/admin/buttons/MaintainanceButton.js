@@ -30,7 +30,7 @@ const MaintenanceButton = ({ licencePlate }) => {
                 color="warning"
                 sx={{ alignSelf: 'flex-end', padding: '0 8px' }}
                 onClick={handleClickOpen}>
-                Mantenimiento terminado
+                En mantenimiento
             </Button>
             <Dialog
                 open={open}

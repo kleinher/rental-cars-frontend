@@ -71,7 +71,7 @@ export default function MechanicPage() {
     const processRowUpdate = (newRow) => {
         const phoneNumberPattern = /^\d{12}$/;
         if (!phoneNumberPattern.test(newRow.phoneNumber)) {
-            setSnackbar({ children: 'El número debe tener 10 dígitos', severity: 'error' });
+            setSnackbar({ children: 'El número debe tener 12 dígitos', severity: 'error' });
             return rows.find((row) => row.id === newRow.id);
         }
 

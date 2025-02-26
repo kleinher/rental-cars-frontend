@@ -9,6 +9,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
 import DeleteDialog from '../components/util/DeleteDialog';
+import CustomSnackbar from '../components/util/CustomSnackbar';
 
 import {
     GridRowModes,
@@ -26,6 +27,7 @@ export default function DriversPage() {
     const { addDriver, drivers, removeDriver, updateDriver } = useContext(PeopleContext);
     const [rows, setRows] = useState(drivers);
     const [rowModesModel, setRowModesModel] = useState({});
+    const [snackbar, setSnackbar] = useState(null);
     const [openDelete, setOpenDelete] = useState(false);
     const [idToRemove, setIdToRemove] = useState('');
 
@@ -73,6 +75,11 @@ export default function DriversPage() {
     };
 
     const processRowUpdate = (newRow) => {
+        const phoneNumberPattern = /^\d{12}$/;
+        if (!phoneNumberPattern.test(newRow.phoneNumber)) {
+            setSnackbar({ children: 'El número debe tener 12 dígitos', severity: 'error' });
+            return rows.find((row) => row.id === newRow.id);
+        }
         const updatedRow = { ...newRow, isNew: false };
         updateDriver(newRow.id, updatedRow);
         setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
@@ -159,6 +166,8 @@ export default function DriversPage() {
                     <CommonForm handleClose={handleClose} createFunction={addDriver} datos={null} />
                 </DialogContent>
             </Dialog>
+
+            <CustomSnackbar snackbar={snackbar} setSnackbar={setSnackbar} />
 
             <DeleteDialog open={openDelete} onClose={() => setOpenDelete(false)} onConfirm={() => { removeDriver(idToRemove); setOpenDelete(false); }} />
 

@@ -38,11 +38,12 @@ const CarEndpoint = {
     async carEndMaintainance(licencePlate) {
         const api = wppClient;
 
-        const message = {
-            licencePlate: licencePlate
-        };
-
-        await api.post("/car/maintainance/end", message);
+        try {
+            await api.post("/car/maintainance/end", { licencePlate });
+        }
+        catch (error) {
+            console.error('Error ending car maintenance:', error);
+        }
     }
 }
 export default CarEndpoint;
