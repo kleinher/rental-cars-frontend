@@ -8,6 +8,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
 import DeleteDialog from '../components/util/DeleteDialog';
+import CustomSnackbar from '../components/util/CustomSnackbar';
 
 import {
     GridRowModes,
@@ -25,6 +26,7 @@ const CarPage = () => {
     const { drivers } = useContext(PeopleContext);
     const [rowModesModel, setRowModesModel] = useState({});
     const [driver, setDriver] = useState('');
+    const [snackbar, setSnackbar] = useState(null);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -93,6 +95,11 @@ const CarPage = () => {
             [id]: { mode: GridRowModes.View, ignoreModifications: true },
         });
     };
+    const handleDelete = () => {
+        setOpenDelete(false);
+        removeCar(idToRemove);
+        setSnackbar({ children: 'Coche eliminado exitosamente', severity: 'success' });
+    }
 
     const processRowUpdate = (newRow) => {
         const updatedRow = { ...newRow, isNew: false, driver: driver, driverId: driver.id };
@@ -194,7 +201,8 @@ const CarPage = () => {
                 </DialogContent>
 
             </Dialog>
-            <DeleteDialog open={openDelete} onClose={() => setOpenDelete(false)} onConfirm={() => { removeCar(idToRemove); setOpenDelete(false); }} />
+            <DeleteDialog open={openDelete} onClose={() => setOpenDelete(false)} onConfirm={handleDelete} />
+            <CustomSnackbar snackbar={snackbar} setSnackbar={setSnackbar} />
 
         </Box>
     );

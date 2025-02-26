@@ -9,6 +9,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
 import DeleteDialog from '../components/util/DeleteDialog';
+import CustomSnackbar from '../components/util/CustomSnackbar';
 
 import {
     GridRowModes,
@@ -16,7 +17,6 @@ import {
     GridActionsCellItem,
     GridRowEditStopReasons,
 } from '@mui/x-data-grid';
-import CustomSnackbar from '../components/util/CustomSnackbar';
 
 
 export default function MechanicPage() {
@@ -80,6 +80,13 @@ export default function MechanicPage() {
         setSnackbar({ children: 'Mecánico guardado exitosamente', severity: 'success' });
         setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
         return updatedRow;
+    };
+
+    const handleDelete = () => {
+        setOpenDelete(false);
+        removeMechanic(idToRemove);
+
+        setSnackbar({ children: 'Mecánico eliminado exitosamente', severity: 'success' });
     };
     const renderEditCellHandler = (params) => {
         return params.value ? params.value.formatted_address : 'No programado';
@@ -174,7 +181,7 @@ export default function MechanicPage() {
 
             <CustomSnackbar snackbar={snackbar} setSnackbar={setSnackbar} />
 
-            <DeleteDialog open={openDelete} onClose={() => setOpenDelete(false)} onConfirm={() => { removeMechanic(idToRemove); setOpenDelete(false); }} />
+            <DeleteDialog open={openDelete} onClose={() => setOpenDelete(false)} onConfirm={handleDelete} />
 
 
             <Dialog open={open} onClose={handleClose}>

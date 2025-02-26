@@ -74,12 +74,31 @@ export default function DriversPage() {
         }
     };
 
-    const processRowUpdate = (newRow) => {
+    const handleCreateDriver = (newDriver) => {
+        if (!validateNumber(newDriver.phoneNumber)) {
+            return
+        }
+        addDriver(newDriver);
+        setRows([...rows, newDriver]);
+        setSnackbar({ children: 'Conductor creado exitosamente', severity: 'success' });
+    }
+
+    const validateNumber = (phoneNumber) => {
         const phoneNumberPattern = /^\d{13}$/;
-        if (!phoneNumberPattern.test(newRow.phoneNumber)) {
+        if (!phoneNumberPattern.test(phoneNumber)) {
             setSnackbar({ children: 'El número debe tener 13 dígitos', severity: 'error' });
+            return false;
+        }
+        return true;
+    }
+    const processRowUpdate = (newRow) => {
+
+        if (!validateNumber(newRow.phoneNumber)) {
             return rows.find((row) => row.id === newRow.id);
         }
+
+
+        setSnackbar({ children: 'Conductor guardado exitosamente', severity: 'success' });
         const updatedRow = { ...newRow, isNew: false };
         updateDriver(newRow.id, updatedRow);
         setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
@@ -92,6 +111,12 @@ export default function DriversPage() {
 
     const handleRowModesModelChange = (newRowModesModel) => {
         setRowModesModel(newRowModesModel);
+    };
+    const handleDelete = () => {
+        setOpenDelete(false);
+        removeDriver(idToRemove);
+
+        setSnackbar({ children: 'Conductor eliminado exitosamente', severity: 'success' });
     };
     const handleEdit = ({ id }) => {
         const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
@@ -168,13 +193,13 @@ export default function DriversPage() {
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Agregar Conductor</DialogTitle>
                 <DialogContent>
-                    <CommonForm handleClose={handleClose} createFunction={addDriver} datos={null} />
+                    <CommonForm handleClose={handleClose} createFunction={handleCreateDriver} datos={null} />
                 </DialogContent>
             </Dialog>
 
             <CustomSnackbar snackbar={snackbar} setSnackbar={setSnackbar} />
 
-            <DeleteDialog open={openDelete} onClose={() => setOpenDelete(false)} onConfirm={() => { removeDriver(idToRemove); setOpenDelete(false); }} />
+            <DeleteDialog open={openDelete} onClose={() => setOpenDelete(false)} onConfirm={handleDelete} />
 
         </Box>
     );
