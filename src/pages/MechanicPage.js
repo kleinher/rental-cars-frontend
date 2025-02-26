@@ -148,7 +148,7 @@ export default function MechanicPage() {
     ];
 
     return (
-        <Box sx={{ height: 400, width: '100%' }}>
+        <Box sx={{ height: '70vh', width: '100%' }}>
             <Box>
                 <Button variant="outlined" onClick={handleClickOpen}>
                     Nuevo Mecánico

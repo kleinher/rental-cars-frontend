@@ -40,7 +40,7 @@ const columns = [
 const NewAdminPage = () => {
     const { cars, qr, validated } = useContext(CarsContext);
     return (
-        <Box>
+        <Box sx={{ height: '75vh', width: '100%' }}>
             {
                 validated ? (
                     <DataGrid rows={cars} columns={columns} />
