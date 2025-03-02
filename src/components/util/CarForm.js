@@ -88,7 +88,7 @@ function CarForm({ datos, handleClose }) {
             </Box>
 
             <FormControl fullWidth>
-                <InputLabel>Driver</InputLabel>
+                <InputLabel>Chofer</InputLabel>
                 <Select
                     value={driver}
                     label="Driver"

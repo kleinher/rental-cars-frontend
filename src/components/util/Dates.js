@@ -8,12 +8,12 @@ export const calculateRelativeDate = (dateString) => {
     const days = differenceInDays(today, updatedDate) - months * 30;
 
     if (months >= 1) {
-        return `Aviso enviado hace: ${months} mes${months > 1 ? "es" : ""} y ${days} día${days !== 1 ? "s" : ""}`;
+        return `Enviado hace: ${months} mes${months > 1 ? "es" : ""} y ${days} día${days !== 1 ? "s" : ""}`;
     }
     if (days >= 1) {
-        return `Aviso enviado hace: ${days} día${days !== 1 ? "s" : ""}`;
+        return `Enviado hace: ${days} día${days !== 1 ? "s" : ""}`;
     }
-    return "Aviso enviado hoy";
+    return "Enviado hoy";
 };
 
 export const calculateRelativeFutureDate = (dateString) => {

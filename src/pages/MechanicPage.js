@@ -105,9 +105,9 @@ export default function MechanicPage() {
         return true;
     };
     const validateNumber = (phoneNumber) => {
-        const phoneNumberPattern = /^\d{12,13}$/;
+        const phoneNumberPattern = /^\d+$/;
         if (!phoneNumberPattern.test(phoneNumber)) {
-            setSnackbar({ children: 'El número debe tener 13 dígitos', severity: 'error' });
+            setSnackbar({ children: 'El número de teléfono es inválido', severity: 'error' });
             return false;
         }
         return true;
