@@ -1,6 +1,6 @@
 // MechanicForm.jsx
 import React, { useState } from 'react';
-import { Box, TextField, Button, Typography } from '@mui/material';
+import { Box, TextField, Button } from '@mui/material';
 import CityAutocomplete from '../mechanic/CityAutocomplete';
 
 function CommonForm({ datos, handleClose, createFunction }) {

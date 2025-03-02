@@ -5,7 +5,7 @@ import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-au
 // Importes de MUI
 import { TextField, Box, Paper, MenuItem, Typography } from '@mui/material';
 
-function CityAutocomplete({ addressParam, onSelectCity }) {
+function CityAutocomplete({ addressParam, onSelectCity, label = 'Ciudad', required = true, variant = 'outlined' }) {
     const [address, setAddress] = useState(addressParam);
 
     const handleChange = (value) => {
@@ -18,9 +18,7 @@ function CityAutocomplete({ addressParam, onSelectCity }) {
             const results = await geocodeByAddress(value);
             const { lat, lng } = await getLatLng(results[0]);
 
-
             const formattedAddress = results[0].formatted_address;
-
 
             onSelectCity({
                 address: formattedAddress,
@@ -37,16 +35,15 @@ function CityAutocomplete({ addressParam, onSelectCity }) {
             value={address}
             onChange={handleChange}
             onSelect={handleSelect}
-            // Restringir a ciudades: solo sugiere ciudades
             searchOptions={{ types: ['(cities)'] }}
         >
             {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                 <Box sx={{ position: 'relative' }}>
                     <TextField
-                        required
+                        required={required}
                         fullWidth
-                        variant="outlined"
-                        label="Ciudad"
+                        variant={variant}
+                        label={label}
                         {...getInputProps({
                             placeholder: 'Escribe tu ciudad...',
                         })}

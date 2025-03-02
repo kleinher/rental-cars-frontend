@@ -10,14 +10,34 @@ import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
 import DeleteDialog from '../components/util/DeleteDialog';
 import CustomSnackbar from '../components/util/CustomSnackbar';
-
+import CityAutocomplete from '../components/mechanic/CityAutocomplete';
 import {
     GridRowModes,
     DataGrid,
     GridActionsCellItem,
     GridRowEditStopReasons,
+    useGridApiContext
 } from '@mui/x-data-grid';
 
+
+function AddressEditInputCell(params) {
+    const { id, value, field, hasFocus } = params;
+    console.log(params);
+    const apiRef = useGridApiContext();
+
+    const handleAddressSelect = (address) => {
+        apiRef.current.setEditCellValue({ id, field, value: address });
+    }
+
+    return (
+        <Box sx={{
+            position: 'absolute',
+            zIndex: 999,
+        }}>
+            <CityAutocomplete addressParam={params.value.formatted_address} onSelectCity={handleAddressSelect} label="" variant='standard' required={false} />
+        </Box>
+    )
+};
 
 export default function MechanicPage() {
     const [open, setOpen] = useState(false);
@@ -27,6 +47,9 @@ export default function MechanicPage() {
     const [snackbar, setSnackbar] = useState(null);
     const [openDelete, setOpenDelete] = useState(false);
     const [idToRemove, setIdToRemove] = useState('');
+    const [address, setAddress] = useState({ address: '', latitude: null, longitude: null });
+
+
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -41,6 +64,10 @@ export default function MechanicPage() {
         }
     };
 
+    const renderEditCellHandlerAddress = (params) => {
+        return <AddressEditInputCell {...params} />;
+    };
+
     const handleEditClick = (id) => () => {
         setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
     };
@@ -49,6 +76,7 @@ export default function MechanicPage() {
         setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
     };
     const renderAddressHandler = (params) => {
+        console.log(params);
         return params.value ? params.value.formatted_address : 'No programado';
     };
     const handleDeleteClick = (id) => () => {
@@ -77,7 +105,7 @@ export default function MechanicPage() {
         return true;
     };
     const validateNumber = (phoneNumber) => {
-        const phoneNumberPattern = /^\d{13}$/;
+        const phoneNumberPattern = /^\d{12,13}$/;
         if (!phoneNumberPattern.test(phoneNumber)) {
             setSnackbar({ children: 'El número debe tener 13 dígitos', severity: 'error' });
             return false;
@@ -103,9 +131,7 @@ export default function MechanicPage() {
 
         setSnackbar({ children: 'Mecánico eliminado exitosamente', severity: 'success' });
     };
-    const renderEditCellHandler = (params) => {
-        return params.value ? params.value.formatted_address : 'No programado';
-    };
+
 
     const handleRowModesModelChange = (newRowModesModel) => {
         setRowModesModel(newRowModesModel);
@@ -117,7 +143,7 @@ export default function MechanicPage() {
         {
             field: 'address', headerName: 'Dirección', width: 200, editable: true,
             renderCell: renderAddressHandler,
-            flex: 1, align: 'center', headerAlign: 'center', renderEditCell: renderEditCellHandler
+            flex: 1, align: 'center', headerAlign: 'center', renderEditCell: renderEditCellHandlerAddress
         },
         {
             field: 'actions',

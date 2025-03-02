@@ -10,6 +10,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
 import DeleteDialog from '../components/util/DeleteDialog';
 import CustomSnackbar from '../components/util/CustomSnackbar';
+import CityAutocomplete from '../components/mechanic/CityAutocomplete';
 
 import {
     GridRowModes,
@@ -43,6 +44,17 @@ export default function DriversPage() {
         if (params.reason === GridRowEditStopReasons.rowFocusOut) {
             event.defaultMuiPrevented = true;
         }
+    };
+
+    const renderEditCellHandler = (params) => {
+        return (
+            <Box sx={{
+                position: 'absolute',
+                zIndex: 999,
+            }}>
+                <CityAutocomplete addressParam={params.value.formatted_address} onSelectCity={(address) => updateDriver({ ...params.value, address })} label="" variant='standard' required={false} />
+            </Box>
+        )
     };
 
     const handleEditClick = (id) => () => {
@@ -85,7 +97,7 @@ export default function DriversPage() {
     }
 
     const validateNumber = (phoneNumber) => {
-        const phoneNumberPattern = /^\d{13}$/;
+        const phoneNumberPattern = /^\d{12,13}$/;
         if (!phoneNumberPattern.test(phoneNumber)) {
             setSnackbar({ children: 'El número debe tener 13 dígitos', severity: 'error' });
             return false;
@@ -107,9 +119,6 @@ export default function DriversPage() {
         return updatedRow;
     };
 
-    const renderEditCellHandler = (params) => {
-        return params.value ? params.value.formatted_address : 'No programado';
-    };
 
     const handleRowModesModelChange = (newRowModesModel) => {
         setRowModesModel(newRowModesModel);
